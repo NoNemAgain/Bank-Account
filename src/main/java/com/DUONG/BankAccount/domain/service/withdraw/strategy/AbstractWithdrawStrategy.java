@@ -13,7 +13,10 @@ public abstract class AbstractWithdrawStrategy implements WithdrawStrategy {
     @Override
     public void withdraw(BankAccount bankAccount, BigDecimal amount) {
         log.info("Withdraw requested: accountId={}, amount={}", bankAccount.getId(), amount);
+
+        log.debug("Check if withdraw is possible : accountId={}, amount={}", bankAccount.getId(), amount);
         checkIfWithdrawIsPossible(bankAccount, amount);
+        log.debug("Successfully checked ! Withdraw is possible : accountId={}, amount={}", bankAccount.getId(), amount);
 
         bankAccount.setBalance(bankAccount.getBalance().subtract(amount));
     }

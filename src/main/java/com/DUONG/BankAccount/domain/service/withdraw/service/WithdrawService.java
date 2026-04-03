@@ -8,6 +8,7 @@ import com.DUONG.BankAccount.domain.model.OperationType;
 import com.DUONG.BankAccount.domain.service.AbstractOperationService;
 import com.DUONG.BankAccount.domain.service.withdraw.strategy.WithdrawStrategy;
 import com.DUONG.BankAccount.port.in.WithdrawPort;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -21,6 +22,7 @@ public class WithdrawService extends AbstractOperationService<WithdrawStrategy> 
 
     @Override
     public void withdraw(UUID accountId, BigDecimal amount) {
+
         BankAccount bankAccount = getAccountById(accountId);
         WithdrawStrategy strategy = getStrategyFor(bankAccount);
 

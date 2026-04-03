@@ -12,7 +12,11 @@ public abstract class AbstractDepositStrategy implements DepositStrategy {
 
     public void deposit(BankAccount bankAccount, BigDecimal amount) {
         log.info("Deposit requested: accountId={}, amount={}", bankAccount.getId(), amount);
+
+        log.debug("Check if deposit is possible : accountId={}, amount={}", bankAccount.getId(), amount);
         checkIfDepositIsPossible(bankAccount, amount);
+        log.debug("Successfully checked ! Deposit is possible : accountId={}, amount={}", bankAccount.getId(), amount);
+
         bankAccount.setBalance(bankAccount.getBalance().add(amount));
     }
 
@@ -27,7 +31,7 @@ public abstract class AbstractDepositStrategy implements DepositStrategy {
     }
 
     protected void checkIfDepositIsPossible(BankAccount bankAccount, BigDecimal amount) {
-        log.info("Checking if amount is valid:amount={}", amount);
+        log.debug("Checking if amount is valid:amount={}", amount);
         checkIfAmountIsPositive(amount);
     }
 }
