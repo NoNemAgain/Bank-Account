@@ -1,5 +1,6 @@
 package com.DUONG.BankAccount.unitTest.service;
 
+import com.DUONG.BankAccount.BankAccountFactory;
 import com.DUONG.BankAccount.adapter.out.repository.BankAccountRepository;
 import com.DUONG.BankAccount.adapter.out.repository.OperationRepository;
 import com.DUONG.BankAccount.domain.exception.InsufficientFundsBalanceException;
@@ -47,14 +48,13 @@ public class WithdrawTest {
     @Test
     void withdrawSavingAccount_shouldDecreaseBalance_whenAmountIsPositive() {
         //GIVEN
-        SavingAccount savingAccount = new SavingAccount();
-        savingAccount.setId(UUID.randomUUID());
+        SavingAccount savingAccount = (SavingAccount) BankAccountFactory.bankAccountCreateTest("SAVING");
+        UUID id = savingAccount.getId();
         savingAccount.setBalance(new BigDecimal("1000.00"));
 
-
         //WHEN
-        when(bankAccountRepository.findById(savingAccount.getId())).thenReturn(Optional.of(savingAccount));
-        withdrawService.withdraw(savingAccount.getId(), new BigDecimal("200.00"));
+        when(bankAccountRepository.findById(id)).thenReturn(Optional.of(savingAccount));
+        withdrawService.withdraw(id, new BigDecimal("200.00"));
 
         //THEN
         assertEquals(new BigDecimal("800.00"), savingAccount.getBalance());
@@ -66,15 +66,15 @@ public class WithdrawTest {
     @Test
     void withdrawCheckingAccount_shouldDecreaseBalance_whenAmountIsPositiveAndExceedBalanceIsLower() {
         //GIVEN
-        CheckingAccount checkingAccount = new CheckingAccount();
-        checkingAccount.setId(UUID.randomUUID());
+        CheckingAccount checkingAccount = (CheckingAccount) BankAccountFactory.bankAccountCreateTest("CHECKING");
+        UUID id = checkingAccount.getId();
         checkingAccount.setBalance(new BigDecimal("1000.00"));
         checkingAccount.setOverdraftAllowed(true);
         checkingAccount.setOverdraftLimit(new BigDecimal("-2000.00"));
 
         //WHEN
-        when(bankAccountRepository.findById(checkingAccount.getId())).thenReturn(Optional.of(checkingAccount));
-        withdrawService.withdraw(checkingAccount.getId(), new BigDecimal("300.00"));
+        when(bankAccountRepository.findById(id)).thenReturn(Optional.of(checkingAccount));
+        withdrawService.withdraw(id, new BigDecimal("300.00"));
 
         //THEN
         assertEquals(new BigDecimal("700.00"), checkingAccount.getBalance());
@@ -83,13 +83,13 @@ public class WithdrawTest {
     @Test
     void withdrawSavingAccount_shouldThrowError_whenAmountIsNegative() {
         //GIVEN
-        SavingAccount savingAccount = new SavingAccount();
-        savingAccount.setId(UUID.randomUUID());
+        SavingAccount savingAccount = (SavingAccount) BankAccountFactory.bankAccountCreateTest("SAVING");
+        UUID id = savingAccount.getId();
         savingAccount.setBalance(new BigDecimal("1000.00"));
         savingAccount.setBalanceLimit(new BigDecimal("3000.00"));
 
         //WHEN
-        when(bankAccountRepository.findById(savingAccount.getId())).thenReturn(Optional.of(savingAccount));
+        when(bankAccountRepository.findById(id)).thenReturn(Optional.of(savingAccount));
 
         //THEN
         assertThrows(InvalidAmountException.class, () -> {
@@ -100,36 +100,36 @@ public class WithdrawTest {
     @Test
     void withdrawCheckingAccount_shouldThrowError_whenOverdaftIsExceeded() {
         //GIVEN
-        CheckingAccount checkingAccount = new CheckingAccount();
-        checkingAccount.setId(UUID.randomUUID());
+        CheckingAccount checkingAccount = (CheckingAccount) BankAccountFactory.bankAccountCreateTest("CHECKING");
+        UUID id = checkingAccount.getId();
         checkingAccount.setBalance(new BigDecimal("1000"));
         checkingAccount.setOverdraftAllowed(true);
         checkingAccount.setOverdraftLimit(new BigDecimal("-2000"));
 
         //WHEN
-        when(bankAccountRepository.findById(checkingAccount.getId())).thenReturn(Optional.of(checkingAccount));
+        when(bankAccountRepository.findById(id)).thenReturn(Optional.of(checkingAccount));
 
         //THEN
         assertThrows(InsufficientFundsBalanceException.class, () -> {
-            withdrawService.withdraw(checkingAccount.getId(), new BigDecimal("5000.00"));
+            withdrawService.withdraw(id, new BigDecimal("5000.00"));
         });
     }
 
     @Test
     void withdrawCheckingAccount_shouldThrowError_whenOverdaftIsNotExceededButOverdraftIsNotAllowed() {
         //GIVEN
-        CheckingAccount checkingAccount = new CheckingAccount();
-        checkingAccount.setId(UUID.randomUUID());
+        CheckingAccount checkingAccount = (CheckingAccount) BankAccountFactory.bankAccountCreateTest("CHECKING");
+        UUID id = checkingAccount.getId();
         checkingAccount.setBalance(new BigDecimal("1000"));
         checkingAccount.setOverdraftAllowed(false);
         checkingAccount.setOverdraftLimit(new BigDecimal("-20000"));
 
         //WHEN
-        when(bankAccountRepository.findById(checkingAccount.getId())).thenReturn(Optional.of(checkingAccount));
+        when(bankAccountRepository.findById(id)).thenReturn(Optional.of(checkingAccount));
 
         //THEN
         assertThrows(InsufficientFundsBalanceException.class, () -> {
-            withdrawService.withdraw(checkingAccount.getId(), new BigDecimal("5000.00"));
+            withdrawService.withdraw(id, new BigDecimal("5000.00"));
         });
     }
 }

@@ -1,5 +1,6 @@
 package com.DUONG.BankAccount.unitTest.service;
 
+import com.DUONG.BankAccount.BankAccountFactory;
 import com.DUONG.BankAccount.adapter.out.repository.BankAccountRepository;
 import com.DUONG.BankAccount.adapter.out.repository.OperationRepository;
 import com.DUONG.BankAccount.domain.exception.ExceedLimitBalanceException;
@@ -44,19 +45,19 @@ public class DepositTest {
                 new SavingDepositStrategy()
         );
 
-        depositService = new DepositService(bankAccountRepository,operationRepository, strategies);
+        depositService = new DepositService(bankAccountRepository, operationRepository, strategies);
     }
 
     @Test
     void depositCheckingAccount_shouldIncreaseBalance_whenAmountIsPositive() {
         //GIVEN
-        CheckingAccount checkingAccount = new CheckingAccount();
-        checkingAccount.setId(UUID.randomUUID());
+        CheckingAccount checkingAccount = (CheckingAccount) BankAccountFactory.bankAccountCreateTest("CHECKING");
+        UUID id = checkingAccount.getId();
         checkingAccount.setBalance(new BigDecimal("1000.00"));
 
         //WHEN
-        when(bankAccountRepository.findById(checkingAccount.getId())).thenReturn(Optional.of(checkingAccount));
-        depositService.deposit(checkingAccount.getId(), new BigDecimal("200.00"));
+        when(bankAccountRepository.findById(id)).thenReturn(Optional.of(checkingAccount));
+        depositService.deposit(id, new BigDecimal("200.00"));
 
         //THEN
         assertEquals(new BigDecimal("1200.00"), checkingAccount.getBalance());
@@ -68,14 +69,14 @@ public class DepositTest {
     @Test
     void depositSavingAccount_shouldIncreaseBalance_whenAmountIsPositiveAndBalanceLimitIsHigher() {
         //GIVEN
-        SavingAccount savingAccount = new SavingAccount();
-        savingAccount.setId(UUID.randomUUID());
+        SavingAccount savingAccount = (SavingAccount) BankAccountFactory.bankAccountCreateTest("SAVING");
+        UUID id = savingAccount.getId();
         savingAccount.setBalance(new BigDecimal("1000.00"));
-        savingAccount.setBalanceLimit(new BigDecimal("3000"));
+        savingAccount.setBalanceLimit(new BigDecimal("22500.00"));
 
         //WHEN
-        when(bankAccountRepository.findById(savingAccount.getId())).thenReturn(Optional.of(savingAccount));
-        depositService.deposit(savingAccount.getId(), new BigDecimal("200.00"));
+        when(bankAccountRepository.findById(id)).thenReturn(Optional.of(savingAccount));
+        depositService.deposit(id, new BigDecimal("200.00"));
 
         //THEN
         assertEquals(new BigDecimal("1200.00"), savingAccount.getBalance());
@@ -84,10 +85,7 @@ public class DepositTest {
     @Test
     void depositSavingAccount_shouldThrowError_whenAmountIsNegative() {
         //GIVEN
-        SavingAccount savingAccount = new SavingAccount();
-        savingAccount.setId(UUID.randomUUID());
-        savingAccount.setBalance(new BigDecimal("1000.00"));
-        savingAccount.setBalanceLimit(new BigDecimal("3000"));
+        SavingAccount savingAccount = (SavingAccount) BankAccountFactory.bankAccountCreateTest("SAVING");
 
         //WHEN
         when(bankAccountRepository.findById(savingAccount.getId())).thenReturn(Optional.of(savingAccount));
@@ -101,10 +99,8 @@ public class DepositTest {
     @Test
     void depositSavingAccount_shouldThrowError_whenBalanceLimitIsExceeded() {
         //GIVEN
-        SavingAccount savingAccount = new SavingAccount();
-        savingAccount.setId(UUID.randomUUID());
-        savingAccount.setBalance(new BigDecimal("1000.00"));
-        savingAccount.setBalanceLimit(new BigDecimal("1400"));
+        SavingAccount savingAccount = (SavingAccount) BankAccountFactory.bankAccountCreateTest("SAVING");
+        savingAccount.setBalanceLimit(new BigDecimal("-2000.00"));
 
         //WHEN
         when(bankAccountRepository.findById(savingAccount.getId())).thenReturn(Optional.of(savingAccount));
