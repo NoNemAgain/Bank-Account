@@ -1,10 +1,11 @@
 package com.DUONG.BankAccount.unitTest.service;
 
 import com.DUONG.BankAccount.adapter.out.repository.BankAccountRepository;
-import com.DUONG.BankAccount.domain.exception.ExceedLimitBalanceException;
+import com.DUONG.BankAccount.adapter.out.repository.OperationRepository;
 import com.DUONG.BankAccount.domain.exception.InsufficientFundsBalanceException;
 import com.DUONG.BankAccount.domain.exception.InvalidAmountException;
 import com.DUONG.BankAccount.domain.model.CheckingAccount;
+import com.DUONG.BankAccount.domain.model.OperationType;
 import com.DUONG.BankAccount.domain.model.SavingAccount;
 import com.DUONG.BankAccount.domain.service.withdraw.service.WithdrawService;
 import com.DUONG.BankAccount.domain.service.withdraw.strategy.CheckingWithdrawStrategy;
@@ -29,6 +30,9 @@ public class WithdrawTest {
     @Mock
     private BankAccountRepository bankAccountRepository;
 
+    @Mock
+    private OperationRepository operationRepository;
+
     private WithdrawService withdrawService;
 
     @BeforeEach
@@ -37,7 +41,7 @@ public class WithdrawTest {
 
         List<WithdrawStrategy> strategies = List.of(new CheckingWithdrawStrategy(), new SavingWithdrawStrategy());
 
-        withdrawService = new WithdrawService(bankAccountRepository, strategies);
+        withdrawService = new WithdrawService(bankAccountRepository, operationRepository, strategies);
     }
 
     @Test
@@ -54,6 +58,9 @@ public class WithdrawTest {
 
         //THEN
         assertEquals(new BigDecimal("800.00"), savingAccount.getBalance());
+        assertEquals(OperationType.WITHDRAW, savingAccount.getOperationsHistory().get(0).getType());
+        assertEquals(1, savingAccount.getOperationsHistory().size());
+        assertEquals(new BigDecimal("-200.00"), savingAccount.getOperationsHistory().get(0).getAmount());
     }
 
     @Test

@@ -22,11 +22,11 @@ public class Operation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
-    private String type;
+    private OperationType type;
 
     private LocalDateTime date;
 
-    private BigDecimal montant;
+    private BigDecimal amount;
 
     @ManyToOne
     @JoinColumn(name = "bank_account_id")

@@ -11,11 +11,11 @@ import java.math.BigDecimal;
 public abstract class AbstractWithdrawStrategy implements WithdrawStrategy {
 
     @Override
-    public void withdraw(BankAccount account, BigDecimal amount) {
-        log.info("Withdraw requested: accountId={}, amount={}", account.getId(), amount);
-        checkIfWithdrawIsPossible(account, amount);
+    public void withdraw(BankAccount bankAccount, BigDecimal amount) {
+        log.info("Withdraw requested: accountId={}, amount={}", bankAccount.getId(), amount);
+        checkIfWithdrawIsPossible(bankAccount, amount);
 
-        account.setBalance(account.getBalance().subtract(amount));
+        bankAccount.setBalance(bankAccount.getBalance().subtract(amount));
     }
 
     @Override

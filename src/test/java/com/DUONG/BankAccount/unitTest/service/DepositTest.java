@@ -1,12 +1,14 @@
 package com.DUONG.BankAccount.unitTest.service;
 
 import com.DUONG.BankAccount.adapter.out.repository.BankAccountRepository;
+import com.DUONG.BankAccount.adapter.out.repository.OperationRepository;
 import com.DUONG.BankAccount.domain.exception.ExceedLimitBalanceException;
 import com.DUONG.BankAccount.domain.exception.InvalidAmountException;
 import com.DUONG.BankAccount.domain.model.CheckingAccount;
+import com.DUONG.BankAccount.domain.model.OperationType;
 import com.DUONG.BankAccount.domain.model.SavingAccount;
-import com.DUONG.BankAccount.domain.service.deposit.strategy.CheckingDepositStrategy;
 import com.DUONG.BankAccount.domain.service.deposit.service.DepositService;
+import com.DUONG.BankAccount.domain.service.deposit.strategy.CheckingDepositStrategy;
 import com.DUONG.BankAccount.domain.service.deposit.strategy.DepositStrategy;
 import com.DUONG.BankAccount.domain.service.deposit.strategy.SavingDepositStrategy;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,6 +30,9 @@ public class DepositTest {
     @Mock
     private BankAccountRepository bankAccountRepository;
 
+    @Mock
+    private OperationRepository operationRepository;
+
     private DepositService depositService;
 
     @BeforeEach
@@ -39,7 +44,7 @@ public class DepositTest {
                 new SavingDepositStrategy()
         );
 
-        depositService = new DepositService(bankAccountRepository, strategies);
+        depositService = new DepositService(bankAccountRepository,operationRepository, strategies);
     }
 
     @Test
@@ -55,6 +60,9 @@ public class DepositTest {
 
         //THEN
         assertEquals(new BigDecimal("1200.00"), checkingAccount.getBalance());
+        assertEquals(OperationType.DEPOSIT, checkingAccount.getOperationsHistory().get(0).getType());
+        assertEquals(1, checkingAccount.getOperationsHistory().size());
+        assertEquals(new BigDecimal("200.00"), checkingAccount.getOperationsHistory().get(0).getAmount());
     }
 
     @Test
