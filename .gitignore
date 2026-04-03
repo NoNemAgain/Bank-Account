@@ -1,0 +1,74 @@
+# -----------------
+# Java / Spring Boot
+# -----------------
+*.class
+*.jar
+*.war
+*.ear
+
+# Build directories
+/target/
+/out/
+/build/
+
+# Maven
+/.mvn/wrapper/maven-wrapper.jar
+!/mvnw
+!/mvnw.cmd
+/pom.xml.tag
+/pom.xml.releaseBackup
+/pom.xml.versionsBackup
+/logs/
+*.log
+
+# Gradle
+.gradle/
+
+# -----------------
+# IDE files
+# -----------------
+## STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+## IntelliJ ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+## NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+## VS Code ###
+.vscode/
+
+# -----------------
+# Angular / Node
+# -----------------
+/node_modules/
+/dist/
+/tmp/
+/.angular/
+*.log
+
+# -----------------
+# Environment / Secrets
+# -----------------
+.env
+*.env
+
+# -----------------
+# OS
+# -----------------
+.DS_Store
+Thumbs.db

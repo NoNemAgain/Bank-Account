@@ -1,0 +1,1 @@
+un BankAccount possède plusieurs operation une opération apparitent a un bank account un bancAcc peut avoir plusieurs Bank Statement Un bank statement est lié au bank acc Un bank statement peut avoir plusieurs opération Uné opération appartient a un bank statement

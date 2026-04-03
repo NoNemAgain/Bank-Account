@@ -1,0 +1,36 @@
+package com.DUONG.BankAccount.domain.service.deposit;
+
+import com.DUONG.BankAccount.domain.exception.ExceedLimitBalanceException;
+import com.DUONG.BankAccount.domain.model.BankAccount;
+import com.DUONG.BankAccount.domain.model.SavingAccount;
+import lombok.extern.slf4j.Slf4j;
+
+import java.math.BigDecimal;
+
+@Slf4j
+public class SavingDepositStrategy extends AbstractDepositStrategy implements DepositStrategy {
+
+    public Class<? extends BankAccount> getAccountType() {
+        return SavingAccount.class;
+    }
+
+    private void checkIfExceedBalance(BankAccount account, BigDecimal amount) {
+        SavingAccount savingAccount = (SavingAccount) account;
+
+        BigDecimal balanceLimit = savingAccount.getBalanceLimit();
+        log.debug("Checking if limit would be exceeded:amount={}, exceed={}", amount, balanceLimit);
+
+        BigDecimal finalBalance = savingAccount.getBalance().add(amount);
+
+        if (finalBalance.compareTo(balanceLimit) > 0) {
+            throw new ExceedLimitBalanceException
+                    ("The account balance limit would be exceeded; you cannot deposit this amount.");
+        }
+    }
+
+    @Override
+    protected void checkIfDepositIsPossible(BankAccount account, BigDecimal amount) {
+        super.checkIfAmountIsPositive(amount);
+        checkIfExceedBalance(account, amount);
+    }
+}
