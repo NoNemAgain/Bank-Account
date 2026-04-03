@@ -1,4 +1,4 @@
-package com.DUONG.BankAccount.domain.service.deposit;
+package com.DUONG.BankAccount.domain.service.deposit.strategy;
 
 import com.DUONG.BankAccount.domain.model.BankAccount;
 import com.DUONG.BankAccount.domain.model.CheckingAccount;

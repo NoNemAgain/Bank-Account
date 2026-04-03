@@ -1,8 +1,9 @@
-package com.DUONG.BankAccount.domain.service.deposit;
+package com.DUONG.BankAccount.domain.service.deposit.service;
 
 import com.DUONG.BankAccount.adapter.out.repository.BankAccountRepository;
 import com.DUONG.BankAccount.domain.model.BankAccount;
 import com.DUONG.BankAccount.domain.service.AbstractOperationService;
+import com.DUONG.BankAccount.domain.service.deposit.strategy.DepositStrategy;
 import com.DUONG.BankAccount.port.in.DepositPort;
 
 import java.math.BigDecimal;
