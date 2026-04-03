@@ -29,8 +29,8 @@ public abstract class AbstractWithdrawStrategy implements WithdrawStrategy {
         }
     }
 
-    protected void checkIfEnoughMoneyInBalance(BankAccount account, BigDecimal amount) {
-        BigDecimal balanceAcc = account.getBalance();
+    protected void checkIfEnoughMoneyInBalance(BankAccount bankAccount, BigDecimal amount) {
+        BigDecimal balanceAcc = bankAccount.getBalance();
 
         log.debug("Checking if there is enough money in the bank account:amount={},:balance={}", amount, balanceAcc);
         if (amount.compareTo(balanceAcc) > 0) {
@@ -38,8 +38,8 @@ public abstract class AbstractWithdrawStrategy implements WithdrawStrategy {
         }
     }
 
-    protected void checkIfWithdrawIsPossible(BankAccount account, BigDecimal amount) {
+    protected void checkIfWithdrawIsPossible(BankAccount bankAccount, BigDecimal amount) {
         checkIfAmountIsPositive(amount);
-        checkIfEnoughMoneyInBalance(account, amount);
+        checkIfEnoughMoneyInBalance(bankAccount, amount);
     }
 }

@@ -10,10 +10,10 @@ import java.math.BigDecimal;
 @Slf4j
 public abstract class AbstractDepositStrategy implements DepositStrategy {
 
-    public void deposit(BankAccount account, BigDecimal amount) {
-        log.info("Deposit requested: accountId={}, amount={}", account.getId(), amount);
-        checkIfDepositIsPossible(account, amount);
-        account.setBalance(account.getBalance().add(amount));
+    public void deposit(BankAccount bankAccount, BigDecimal amount) {
+        log.info("Deposit requested: accountId={}, amount={}", bankAccount.getId(), amount);
+        checkIfDepositIsPossible(bankAccount, amount);
+        bankAccount.setBalance(bankAccount.getBalance().add(amount));
     }
 
     @Override
@@ -26,7 +26,7 @@ public abstract class AbstractDepositStrategy implements DepositStrategy {
         }
     }
 
-    protected void checkIfDepositIsPossible(BankAccount account, BigDecimal amount) {
+    protected void checkIfDepositIsPossible(BankAccount bankAccount, BigDecimal amount) {
         log.info("Checking if amount is valid:amount={}", amount);
         checkIfAmountIsPositive(amount);
     }

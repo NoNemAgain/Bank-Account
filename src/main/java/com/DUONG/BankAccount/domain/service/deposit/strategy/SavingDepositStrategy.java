@@ -14,8 +14,8 @@ public class SavingDepositStrategy extends AbstractDepositStrategy implements De
         return SavingAccount.class;
     }
 
-    private void checkIfExceedBalance(BankAccount account, BigDecimal amount) {
-        SavingAccount savingAccount = (SavingAccount) account;
+    private void checkIfExceedBalance(BankAccount bankAccount, BigDecimal amount) {
+        SavingAccount savingAccount = (SavingAccount) bankAccount;
 
         BigDecimal balanceLimit = savingAccount.getBalanceLimit();
         log.debug("Checking if limit would be exceeded:amount={}, exceed={}", amount, balanceLimit);
@@ -29,8 +29,8 @@ public class SavingDepositStrategy extends AbstractDepositStrategy implements De
     }
 
     @Override
-    protected void checkIfDepositIsPossible(BankAccount account, BigDecimal amount) {
+    protected void checkIfDepositIsPossible(BankAccount bankAccount, BigDecimal amount) {
         super.checkIfAmountIsPositive(amount);
-        checkIfExceedBalance(account, amount);
+        checkIfExceedBalance(bankAccount, amount);
     }
 }

@@ -11,10 +11,10 @@ import java.math.BigDecimal;
 public class CheckingWithdrawStrategy extends AbstractWithdrawStrategy implements WithdrawStrategy {
 
     @Override
-    protected void checkIfEnoughMoneyInBalance(BankAccount account, BigDecimal amount) {
-        BigDecimal overdraftLimit = ((CheckingAccount) account).getOverdraftLimit();
-        Boolean overdraftAllowed = ((CheckingAccount) account).isOverdraftAllowed();
-        BigDecimal finalBalance = account.getBalance().subtract(amount);
+    protected void checkIfEnoughMoneyInBalance(BankAccount bankAccount, BigDecimal amount) {
+        BigDecimal overdraftLimit = ((CheckingAccount) bankAccount).getOverdraftLimit();
+        Boolean overdraftAllowed = ((CheckingAccount) bankAccount).isOverdraftAllowed();
+        BigDecimal finalBalance = bankAccount.getBalance().subtract(amount);
 
         log.debug("Check if the balance will exceed overdaft limit : overdraftLimit={}, amount={}", overdraftLimit, amount);
 
@@ -24,10 +24,10 @@ public class CheckingWithdrawStrategy extends AbstractWithdrawStrategy implement
         }
     }
 
-    protected void checkIfOverdraftAllowed(BankAccount account, BigDecimal amount) {
-        BigDecimal overdraftLimit = ((CheckingAccount) account).getOverdraftLimit();
-        Boolean overdraftAllowed = ((CheckingAccount) account).isOverdraftAllowed();
-        BigDecimal finalBalance = account.getBalance().subtract(amount);
+    protected void checkIfOverdraftAllowed(BankAccount bankAccount, BigDecimal amount) {
+        BigDecimal overdraftLimit = ((CheckingAccount) bankAccount).getOverdraftLimit();
+        Boolean overdraftAllowed = ((CheckingAccount) bankAccount).isOverdraftAllowed();
+        BigDecimal finalBalance = bankAccount.getBalance().subtract(amount);
 
         log.debug("Check if overdraft is allowed : overdraftAllowed={}", overdraftAllowed);
 
@@ -42,9 +42,9 @@ public class CheckingWithdrawStrategy extends AbstractWithdrawStrategy implement
     }
 
     @Override
-    protected void checkIfWithdrawIsPossible(BankAccount account, BigDecimal amount) {
-        super.checkIfWithdrawIsPossible(account, amount);
-        checkIfOverdraftAllowed(account, amount);
+    protected void checkIfWithdrawIsPossible(BankAccount bankAccount, BigDecimal amount) {
+        super.checkIfWithdrawIsPossible(bankAccount, amount);
+        checkIfOverdraftAllowed(bankAccount, amount);
     }
 
 }
