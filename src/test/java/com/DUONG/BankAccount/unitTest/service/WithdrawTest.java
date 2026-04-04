@@ -1,6 +1,7 @@
 package com.DUONG.BankAccount.unitTest.service;
 
 import com.DUONG.BankAccount.BankAccountFactory;
+import com.DUONG.BankAccount.StrategyFactory;
 import com.DUONG.BankAccount.adapter.out.repository.BankAccountRepository;
 import com.DUONG.BankAccount.adapter.out.repository.OperationRepository;
 import com.DUONG.BankAccount.domain.exception.InsufficientFundsBalanceException;
@@ -41,7 +42,7 @@ public class WithdrawTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        List<WithdrawStrategy> strategies = List.of(new CheckingWithdrawStrategy(), new SavingWithdrawStrategy());
+        List<WithdrawStrategy> strategies = StrategyFactory.strategyListCreate(OperationType.WITHDRAW);
 
         withdrawService = new WithdrawService(bankAccountRepository, operationRepository, strategies);
     }

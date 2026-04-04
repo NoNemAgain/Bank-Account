@@ -1,6 +1,7 @@
 package com.DUONG.BankAccount.unitTest.service;
 
 import com.DUONG.BankAccount.BankAccountFactory;
+import com.DUONG.BankAccount.StrategyFactory;
 import com.DUONG.BankAccount.adapter.out.repository.BankAccountRepository;
 import com.DUONG.BankAccount.adapter.out.repository.OperationRepository;
 import com.DUONG.BankAccount.domain.exception.ExceedLimitBalanceException;
@@ -41,10 +42,7 @@ public class DepositTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        List<DepositStrategy> strategies = List.of(
-                new CheckingDepositStrategy(),
-                new SavingDepositStrategy()
-        );
+        List<DepositStrategy> strategies = StrategyFactory.strategyListCreate(OperationType.DEPOSIT);
 
         depositService = new DepositService(bankAccountRepository, operationRepository, strategies);
     }
