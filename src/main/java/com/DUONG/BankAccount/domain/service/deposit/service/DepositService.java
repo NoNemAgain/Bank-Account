@@ -8,18 +8,21 @@ import com.DUONG.BankAccount.domain.model.OperationType;
 import com.DUONG.BankAccount.domain.service.AbstractOperationService;
 import com.DUONG.BankAccount.domain.service.deposit.strategy.DepositStrategy;
 import com.DUONG.BankAccount.port.in.DepositPort;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
+
+@Service
 public class DepositService extends AbstractOperationService<DepositStrategy> implements DepositPort {
     public DepositService(BankAccountRepository accountRepository, OperationRepository operationRepository, List<DepositStrategy> strategyList) {
         super(accountRepository, operationRepository, strategyList);
     }
 
     @Override
-    public void deposit(UUID accountId, BigDecimal amount) {
+    public BankAccount deposit(UUID accountId, BigDecimal amount) {
         BankAccount bankAccount = getAccountById(accountId);
         DepositStrategy strategy = getStrategyFor(bankAccount);
 
@@ -30,5 +33,6 @@ public class DepositService extends AbstractOperationService<DepositStrategy> im
         operationRepository.save(operation);
 
         saveBankAccount(bankAccount);
+        return bankAccount;
     }
 }

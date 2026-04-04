@@ -8,12 +8,14 @@ import com.DUONG.BankAccount.domain.model.BankStatement;
 import com.DUONG.BankAccount.domain.model.Operation;
 import com.DUONG.BankAccount.port.in.BankStatementPort;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.UUID;
 
 @Slf4j
+@Service
 public class BankStatementService implements BankStatementPort {
 
     private final BankStatementRepository bankStatementRepository;

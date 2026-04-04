@@ -8,12 +8,14 @@ import com.DUONG.BankAccount.domain.model.OperationType;
 import com.DUONG.BankAccount.domain.service.AbstractOperationService;
 import com.DUONG.BankAccount.domain.service.withdraw.strategy.WithdrawStrategy;
 import com.DUONG.BankAccount.port.in.WithdrawPort;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
+
+@Service
 public class WithdrawService extends AbstractOperationService<WithdrawStrategy> implements WithdrawPort {
 
     public WithdrawService(BankAccountRepository accountRepository, OperationRepository operationRepository, List<WithdrawStrategy> strategyList) {
@@ -21,7 +23,7 @@ public class WithdrawService extends AbstractOperationService<WithdrawStrategy> 
     }
 
     @Override
-    public void withdraw(UUID accountId, BigDecimal amount) {
+    public BankAccount withdraw(UUID accountId, BigDecimal amount) {
 
         BankAccount bankAccount = getAccountById(accountId);
         WithdrawStrategy strategy = getStrategyFor(bankAccount);
@@ -33,6 +35,7 @@ public class WithdrawService extends AbstractOperationService<WithdrawStrategy> 
         operationRepository.save(operation);
 
         saveBankAccount(bankAccount);
+        return bankAccount;
     }
 
 
