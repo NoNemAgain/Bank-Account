@@ -5,6 +5,7 @@ import com.DUONG.BankAccount.adapter.out.repository.BankAccountRepository;
 import com.DUONG.BankAccount.adapter.out.repository.OperationRepository;
 import com.DUONG.BankAccount.domain.exception.ExceedLimitBalanceException;
 import com.DUONG.BankAccount.domain.exception.InvalidAmountException;
+import com.DUONG.BankAccount.domain.model.AccountType;
 import com.DUONG.BankAccount.domain.model.CheckingAccount;
 import com.DUONG.BankAccount.domain.model.OperationType;
 import com.DUONG.BankAccount.domain.model.SavingAccount;
@@ -51,7 +52,7 @@ public class DepositTest {
     @Test
     void depositCheckingAccount_shouldIncreaseBalance_whenAmountIsPositive() {
         //GIVEN
-        CheckingAccount checkingAccount = (CheckingAccount) BankAccountFactory.bankAccountCreateTest("CHECKING");
+        CheckingAccount checkingAccount = (CheckingAccount) BankAccountFactory.bankAccountCreateTest(AccountType.CHECKING);
         UUID id = checkingAccount.getId();
         checkingAccount.setBalance(new BigDecimal("1000.00"));
 
@@ -69,7 +70,7 @@ public class DepositTest {
     @Test
     void depositSavingAccount_shouldIncreaseBalance_whenAmountIsPositiveAndBalanceLimitIsHigher() {
         //GIVEN
-        SavingAccount savingAccount = (SavingAccount) BankAccountFactory.bankAccountCreateTest("SAVING");
+        SavingAccount savingAccount = (SavingAccount) BankAccountFactory.bankAccountCreateTest(AccountType.SAVING);
         UUID id = savingAccount.getId();
         savingAccount.setBalance(new BigDecimal("1000.00"));
         savingAccount.setBalanceLimit(new BigDecimal("22500.00"));
@@ -85,7 +86,7 @@ public class DepositTest {
     @Test
     void depositSavingAccount_shouldThrowError_whenAmountIsNegative() {
         //GIVEN
-        SavingAccount savingAccount = (SavingAccount) BankAccountFactory.bankAccountCreateTest("SAVING");
+        SavingAccount savingAccount = (SavingAccount) BankAccountFactory.bankAccountCreateTest(AccountType.SAVING);
 
         //WHEN
         when(bankAccountRepository.findById(savingAccount.getId())).thenReturn(Optional.of(savingAccount));
@@ -99,7 +100,7 @@ public class DepositTest {
     @Test
     void depositSavingAccount_shouldThrowError_whenBalanceLimitIsExceeded() {
         //GIVEN
-        SavingAccount savingAccount = (SavingAccount) BankAccountFactory.bankAccountCreateTest("SAVING");
+        SavingAccount savingAccount = (SavingAccount) BankAccountFactory.bankAccountCreateTest(AccountType.SAVING);
         savingAccount.setBalanceLimit(new BigDecimal("-2000.00"));
 
         //WHEN

@@ -24,4 +24,8 @@ public class SavingAccount extends BankAccount {
         super(id, balance, operationsHistory, bankStatements);
         this.balanceLimit = balanceLimit;
     }
+
+    public AccountType getTypeBank() {
+        return AccountType.SAVING;
+    }
 }

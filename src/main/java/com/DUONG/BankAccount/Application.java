@@ -3,7 +3,7 @@ package com.DUONG.BankAccount;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.DUONG.BankAccount")
 public class Application {
 
 	public static void main(String[] args) {

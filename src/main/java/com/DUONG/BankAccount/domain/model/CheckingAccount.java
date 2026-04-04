@@ -28,4 +28,8 @@ public class CheckingAccount extends BankAccount {
         this.overdraftAllowed = overdraftAllowed;
         this.overdraftLimit = overdraftLimit;
     }
+
+    public AccountType getTypeBank() {
+        return AccountType.CHECKING;
+    }
 }

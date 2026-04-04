@@ -4,10 +4,7 @@ import com.DUONG.BankAccount.BankAccountFactory;
 import com.DUONG.BankAccount.OperationFactory;
 import com.DUONG.BankAccount.adapter.out.repository.BankAccountRepository;
 import com.DUONG.BankAccount.adapter.out.repository.BankStatementRepository;
-import com.DUONG.BankAccount.domain.model.BankStatement;
-import com.DUONG.BankAccount.domain.model.CheckingAccount;
-import com.DUONG.BankAccount.domain.model.Operation;
-import com.DUONG.BankAccount.domain.model.SavingAccount;
+import com.DUONG.BankAccount.domain.model.*;
 import com.DUONG.BankAccount.domain.service.bankStatement.service.BankStatementService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,7 +36,7 @@ public class BankStatementTest {
     @Test
     void createBankStatement_shouldCreateABankStatement() {
         //GIVEN
-        SavingAccount bankAccount = (SavingAccount) BankAccountFactory.bankAccountCreateTest("SAVING");
+        SavingAccount bankAccount = (SavingAccount) BankAccountFactory.bankAccountCreateTest(AccountType.SAVING);
         UUID id = bankAccount.getId();
         Operation operation1 = OperationFactory.operationCreateTest(bankAccount, 7);
 
@@ -50,7 +47,7 @@ public class BankStatementTest {
         //THEN
         assertEquals(id, bankStatement.getBankAccount().getId());
         assertEquals(bankAccount.getBalance(), bankStatement.getBalance());
-        assertEquals("SavingAccount", bankStatement.getAccountType());
+        assertEquals(AccountType.SAVING, bankStatement.getAccountType());
         assertEquals(1, bankStatement.getOperations().size());
         assertEquals(operation1.getId(), bankStatement.getOperations().get(0).getId());
     }
@@ -58,7 +55,7 @@ public class BankStatementTest {
     @Test
     void createBankStatement_shouldFilterOperationAndKeepOnlyFromLastMonth() {
         //GIVEN
-        CheckingAccount bankAccount = (CheckingAccount) BankAccountFactory.bankAccountCreateTest("CHECKING");
+        CheckingAccount bankAccount = (CheckingAccount) BankAccountFactory.bankAccountCreateTest(AccountType.CHECKING);
         UUID id = bankAccount.getId();
 
         Operation operation1 = OperationFactory.operationCreateTest(bankAccount, 40);
@@ -78,7 +75,7 @@ public class BankStatementTest {
     void createBankStatement_shouldSortByTheMostRecent() {
 
         //GIVEN
-        CheckingAccount bankAccount = (CheckingAccount) BankAccountFactory.bankAccountCreateTest("CHECKING");
+        CheckingAccount bankAccount = (CheckingAccount) BankAccountFactory.bankAccountCreateTest(AccountType.CHECKING);
         UUID id = bankAccount.getId();
 
         Operation operation1 = OperationFactory.operationCreateTest(bankAccount, 40);
