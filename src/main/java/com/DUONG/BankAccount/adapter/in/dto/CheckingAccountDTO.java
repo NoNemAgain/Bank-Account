@@ -16,15 +16,15 @@ import java.util.UUID;
 @NoArgsConstructor
 public class CheckingAccountDTO extends BankAccountDTO {
 
-    private boolean exceedAllowed;
+    private boolean overdraftAllowed;
 
-    private BigDecimal exceedBalance;
+    private BigDecimal overdraftLimit;
 
-    public CheckingAccountDTO(UUID id, BigDecimal balance, boolean exceedAllowed,
+    public CheckingAccountDTO(UUID id, BigDecimal balance, boolean overdraftAllowed,
                               List<Operation> operationsHistory, List<BankStatement> bankStatements,
-                              BigDecimal exceedBalance) {
+                              BigDecimal overdraftLimit) {
         super(id, balance, operationsHistory, bankStatements);
-        this.exceedAllowed = exceedAllowed;
-        this.exceedBalance = exceedBalance;
+        this.overdraftAllowed = overdraftAllowed;
+        this.overdraftLimit = overdraftLimit;
     }
 }

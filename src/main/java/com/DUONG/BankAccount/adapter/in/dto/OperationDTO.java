@@ -1,5 +1,6 @@
 package com.DUONG.BankAccount.adapter.in.dto;
 
+import com.DUONG.BankAccount.domain.model.OperationType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ import java.util.UUID;
 public class OperationDTO {
     private UUID id;
 
-    private String type;
+    private OperationType type;
 
     private LocalDateTime date;
 

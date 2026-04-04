@@ -25,7 +25,7 @@ public class BankStatement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
-    private String accountType;
+    private AccountType accountType;
 
     private BigDecimal balance;
 

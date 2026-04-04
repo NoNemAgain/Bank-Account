@@ -1,5 +1,6 @@
 package com.DUONG.BankAccount.adapter.in.dto;
 
+import com.DUONG.BankAccount.domain.model.AccountType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class BankStatementDTO {
 
     private UUID id;
 
-    private String accountType;
+    private AccountType accountType;
 
     private BigDecimal balance;
 
