@@ -22,7 +22,8 @@ import java.util.UUID;
 public class BankStatement {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
 
     private AccountType accountType;

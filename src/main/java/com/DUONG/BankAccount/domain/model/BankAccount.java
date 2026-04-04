@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -17,11 +18,13 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "account_type")
 public abstract class BankAccount {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
 
     private BigDecimal balance;
@@ -34,9 +37,8 @@ public abstract class BankAccount {
     @JsonManagedReference
     private List<BankStatement> bankStatements = new ArrayList<>();
 
-    public String getTypeBank() {
-        return this.getClass().getSimpleName();
-    }
+
+    public abstract AccountType getTypeBank();
 
     public void addOperation(Operation operation) {
         operationsHistory.add(operation);

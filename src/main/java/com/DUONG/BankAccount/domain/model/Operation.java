@@ -19,7 +19,8 @@ import java.util.UUID;
 @Entity
 public class Operation {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
 
     private OperationType type;
