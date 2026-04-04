@@ -19,7 +19,7 @@ public class CheckingWithdrawStrategy extends AbstractWithdrawStrategy implement
         log.debug("Check if the balance will exceed overdaft limit : overdraftLimit={}, amount={}", overdraftLimit, amount);
 
         if ((finalBalance.compareTo(overdraftLimit) < 0) && (overdraftAllowed)) {
-            throw new InsufficientFundsBalanceException("Vous n’avez pas assez d’argent sur votre compte : vous ne pouvez pas retirer cet argent.");
+            throw new InsufficientFundsBalanceException();
 
         }
     }
@@ -32,7 +32,7 @@ public class CheckingWithdrawStrategy extends AbstractWithdrawStrategy implement
         log.debug("Check if overdraft is allowed : overdraftAllowed={}", overdraftAllowed);
 
         if ((finalBalance.compareTo(new BigDecimal("0")) < 0) && (!overdraftAllowed)) {
-            throw new InsufficientFundsBalanceException("Vous n’avez pas assez d’argent sur votre compte : vous ne pouvez pas retirer cet argent.");
+            throw new InsufficientFundsBalanceException();
 
         }
     }

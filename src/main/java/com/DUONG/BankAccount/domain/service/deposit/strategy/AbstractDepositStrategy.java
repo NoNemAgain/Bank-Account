@@ -26,7 +26,7 @@ public abstract class AbstractDepositStrategy implements DepositStrategy {
     protected void checkIfAmountIsPositive(BigDecimal amount) {
         log.debug("Checking if amount is positive:amount={}", amount);
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new InvalidAmountException("The deposit amount must be positive");
+            throw new InvalidAmountException();
         }
     }
 

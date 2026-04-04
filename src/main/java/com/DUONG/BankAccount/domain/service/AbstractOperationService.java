@@ -3,6 +3,7 @@ package com.DUONG.BankAccount.domain.service;
 import com.DUONG.BankAccount.adapter.out.repository.BankAccountRepository;
 import com.DUONG.BankAccount.adapter.out.repository.OperationRepository;
 import com.DUONG.BankAccount.domain.exception.ObjectNotfoundException;
+import com.DUONG.BankAccount.domain.exception.ObjectType;
 import com.DUONG.BankAccount.domain.model.BankAccount;
 import com.DUONG.BankAccount.domain.model.Operation;
 import com.DUONG.BankAccount.domain.model.OperationType;
@@ -31,7 +32,7 @@ public abstract class AbstractOperationService<S extends OperationStrategy> {
 
     public BankAccount getAccountById(UUID bankAccountId) {
         BankAccount bankAccount = accountRepository.findById(bankAccountId)
-                .orElseThrow(() -> new ObjectNotfoundException("Account not found"));
+                .orElseThrow(() -> new ObjectNotfoundException(ObjectType.BANK));
 
         return bankAccount;
     }

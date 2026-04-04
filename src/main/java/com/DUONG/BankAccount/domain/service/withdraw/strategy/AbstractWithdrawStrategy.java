@@ -28,7 +28,7 @@ public abstract class AbstractWithdrawStrategy implements WithdrawStrategy {
     protected void checkIfAmountIsPositive(BigDecimal amount) {
         log.debug("Checking if amount is positive:amount={}", amount);
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new InvalidAmountException("The deposit amount must be positive");
+            throw new InvalidAmountException();
         }
     }
 
@@ -37,7 +37,7 @@ public abstract class AbstractWithdrawStrategy implements WithdrawStrategy {
 
         log.debug("Checking if there is enough money in the bank account:amount={},:balance={}", amount, balanceAcc);
         if (amount.compareTo(balanceAcc) > 0) {
-            throw new InsufficientFundsBalanceException("Vous ne pouvez pas retirer cet argent : vous n’avez pas assez d’argent sur votre compte.");
+            throw new InsufficientFundsBalanceException();
         }
     }
 

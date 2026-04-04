@@ -3,6 +3,7 @@ package com.DUONG.BankAccount.domain.service.bankStatement.service;
 import com.DUONG.BankAccount.adapter.out.repository.BankAccountRepository;
 import com.DUONG.BankAccount.adapter.out.repository.BankStatementRepository;
 import com.DUONG.BankAccount.domain.exception.ObjectNotfoundException;
+import com.DUONG.BankAccount.domain.exception.ObjectType;
 import com.DUONG.BankAccount.domain.model.BankAccount;
 import com.DUONG.BankAccount.domain.model.BankStatement;
 import com.DUONG.BankAccount.domain.model.Operation;
@@ -31,7 +32,7 @@ public class BankStatementService implements BankStatementPort {
         log.debug("Requested : Generated bankStatment, idAccount={}", id);
 
         BankAccount bankAccount = bankAccountRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotfoundException("Couldn't find a bank Account with this ID"));
+                .orElseThrow(() -> new ObjectNotfoundException(ObjectType.BANK));
 
         BankStatement bankStatement = createObjectBankStatement(bankAccount);
         log.debug("Successfully created object bankStatement");
