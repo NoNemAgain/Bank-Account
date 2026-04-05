@@ -35,7 +35,7 @@ public class DepositTest {
     }
 
     @Test
-    void deposit_should_have_200() throws Exception {
+    void deposit_ShouldHave200() throws Exception {
         //GIVEN
         CheckingAccount checkingAccount = (CheckingAccount) BankAccountFactory.bankAccountCreateTest(AccountType.CHECKING);
         CheckingAccount saveCheckingAccount = bankAccountRepository.save(checkingAccount);
@@ -50,7 +50,7 @@ public class DepositTest {
     }
 
     @Test
-    void deposit_negative_amount_should_have_400() throws Exception {
+    void deposit_ShouldHave400_WhenAmountIsNegative() throws Exception {
         //GIVEN
         SavingAccount savingAccount = (SavingAccount) BankAccountFactory.bankAccountCreateTest(AccountType.SAVING);
         SavingAccount saveSavingAccount = bankAccountRepository.save(savingAccount);

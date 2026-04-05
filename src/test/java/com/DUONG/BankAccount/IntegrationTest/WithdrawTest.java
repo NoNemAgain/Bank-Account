@@ -15,8 +15,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -33,8 +31,9 @@ public class WithdrawTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
         bankAccountRepository = context.getBean(BankAccountRepository.class);
     }
+
     @Test
-    void withdraw_should_have_200() throws Exception {
+    void withdraw_ShouldHave200() throws Exception {
         //Given
         CheckingAccount checkingAccount = (CheckingAccount) BankAccountFactory.bankAccountCreateTest(AccountType.CHECKING);
         CheckingAccount saveCheckingAccount = bankAccountRepository.save(checkingAccount);
@@ -48,7 +47,7 @@ public class WithdrawTest {
     }
 
     @Test
-    void withdraw_negative_amount_should_have_400() throws Exception {
+    void withdraw_ShouldHave400_WhenAmountIsNegative() throws Exception {
         //Given
         SavingAccount savingAccount = (SavingAccount) BankAccountFactory.bankAccountCreateTest(AccountType.SAVING);
         SavingAccount saveSavingAccount = bankAccountRepository.save(savingAccount);
