@@ -40,10 +40,8 @@ public abstract class AbstractOperationService<S extends OperationStrategy> {
     }
 
     public BankAccount getAccountById(UUID bankAccountId) {
-        BankAccount bankAccount = accountRepository.findById(bankAccountId)
+        return accountRepository.findById(bankAccountId)
                 .orElseThrow(() -> new ObjectNotfoundException(ObjectType.BANK));
-
-        return bankAccount;
     }
 
     public void saveBankAccount(BankAccount bankAccount) {
