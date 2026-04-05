@@ -44,7 +44,7 @@ public class BankStatementTest {
     }
 
     @Test
-    void test_generate_bank_statement_should_have_200() throws Exception {
+    void createBankStatement_shouldHave201() throws Exception {
         //Given
         CheckingAccount checkingAccount = (CheckingAccount) BankAccountFactory.bankAccountCreateTest(AccountType.CHECKING);
 
@@ -58,7 +58,7 @@ public class BankStatementTest {
     }
 
     @Test
-    void test_generate_bank_statement_should_have_400() throws Exception {
+    void createBankStatement_shouldHave400_whenIdIsWrong() throws Exception {
         //Given
         CheckingAccount checkingAccount = (CheckingAccount) BankAccountFactory.bankAccountCreateTest(AccountType.CHECKING);
 
