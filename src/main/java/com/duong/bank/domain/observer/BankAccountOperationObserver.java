@@ -1,0 +1,8 @@
+package com.duong.bank.domain.observer;
+
+import com.duong.bank.domain.model.BankAccount;
+import com.duong.bank.domain.model.Operation;
+
+public interface BankAccountOperationObserver {
+    void onOperationCreated(BankAccount bankAccount,Operation operation);
+}

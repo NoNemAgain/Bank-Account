@@ -12,8 +12,8 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.DUONG</groupId>
-    <artifactId>BankAccount</artifactId>
+    <groupId>com.duong</groupId>
+    <artifactId>bank</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <properties>
         <java.version>17</java.version>
