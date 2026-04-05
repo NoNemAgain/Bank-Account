@@ -27,17 +27,15 @@ public abstract class AbstractOperationService<S extends OperationStrategy> {
     protected final OperationRepository operationRepository;
 
     protected AbstractOperationService(BankAccountRepository bankAccountRepository,
-                                    OperationRepository operationRepository,
-                                    List<S> strategyList) {
+                                       OperationRepository operationRepository,
+                                       List<S> strategyList) {
         this.accountRepository = bankAccountRepository;
         this.operationRepository = operationRepository;
         this.strategies = strategyList.stream()
                 .collect(Collectors.toMap(OperationStrategy::getAccountType, s -> s));
-        System.out.println(strategies);
     }
 
     public S getStrategyFor(BankAccount bankAccount) {
-        System.out.println(strategies);
         return this.strategies.get(bankAccount.getTypeBank());
     }
 
