@@ -7,7 +7,8 @@ public class ExceedLimitBalanceException extends RuntimeException {
     public ExceedLimitBalanceException() {
         super(DEFAULT_MESSAGE);
     }
-    public ExceedLimitBalanceException(String message){
+
+    public ExceedLimitBalanceException(String message) {
         super(message);
     }
 }
