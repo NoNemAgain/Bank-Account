@@ -1,6 +1,7 @@
 package com.DUONG.BankAccount.adapter.in.controller;
 
 
+import com.DUONG.BankAccount.adapter.in.dto.BankAccountDTO;
 import com.DUONG.BankAccount.adapter.mapper.BankAccountMapper;
 import com.DUONG.BankAccount.port.in.DepositPort;
 import com.DUONG.BankAccount.port.in.WithdrawPort;
@@ -11,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/bankAccount")
+@RequestMapping("/api/bank-accounts")
 public class BankAccountController {
 
     private final DepositPort depositPort;
@@ -23,12 +24,12 @@ public class BankAccountController {
     }
 
     @PatchMapping("/{id}/deposit")
-    public ResponseEntity<?> depositMoney(@PathVariable UUID id, @RequestParam double amount) {
-        return ResponseEntity.ok(BankAccountMapper.toDTO(depositPort.deposit(id, new BigDecimal(amount))));
+    public ResponseEntity<BankAccountDTO> deposit(@PathVariable UUID id, @RequestBody BigDecimal amount) {
+        return ResponseEntity.ok(BankAccountMapper.toDTO(depositPort.deposit(id, amount)));
     }
 
     @PatchMapping("/{id}/withdraw")
-    public ResponseEntity<?> withdrawMoeny(@PathVariable UUID id, @RequestParam double amount) {
-        return ResponseEntity.ok(BankAccountMapper.toDTO(withdrawPort.withdraw(id, new BigDecimal(amount))));
+    public ResponseEntity<BankAccountDTO> withdraw(@PathVariable UUID id, @RequestBody BigDecimal amount) {
+        return ResponseEntity.ok(BankAccountMapper.toDTO(withdrawPort.withdraw(id, amount)));
     }
 }
