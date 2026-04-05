@@ -2,10 +2,8 @@ package com.DUONG.BankAccount.IntegrationTest;
 
 import com.DUONG.BankAccount.BankAccountFactory;
 import com.DUONG.BankAccount.adapter.out.repository.BankAccountRepository;
-import com.DUONG.BankAccount.adapter.out.repository.BankStatementRepository;
 import com.DUONG.BankAccount.domain.model.AccountType;
 import com.DUONG.BankAccount.domain.model.CheckingAccount;
-import com.DUONG.BankAccount.domain.service.bankStatement.service.BankStatementService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,21 +24,14 @@ public class BankStatementTest {
 
     private MockMvc mockMvc;
 
-    private BankStatementService bankStatementService;
 
     private BankAccountRepository bankAccountRepository;
 
-    private BankStatementRepository bankStatementRepository;
 
     @BeforeEach
     void setUp(WebApplicationContext context) {
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-
         bankAccountRepository = context.getBean(BankAccountRepository.class);
-        bankStatementRepository = context.getBean(BankStatementRepository.class);
-
-        bankStatementService = new BankStatementService(bankStatementRepository, bankAccountRepository);
-
     }
 
     @Test
