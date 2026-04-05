@@ -9,24 +9,32 @@ import com.DUONG.BankAccount.domain.service.withdraw.strategy.CheckingWithdrawSt
 import com.DUONG.BankAccount.domain.service.withdraw.strategy.SavingWithdrawStrategy;
 import com.DUONG.BankAccount.domain.service.withdraw.strategy.WithdrawStrategy;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class StrategyFactory {
-    public static <T extends OperationStrategy> List<T> strategyListCreate(OperationType operationType) {
-        List<OperationStrategy> strategies = new ArrayList<>();
-        switch (operationType) {
-            case DEPOSIT -> {
-                strategies.add(new CheckingDepositStrategy());
-                strategies.add(new SavingDepositStrategy());
+    public static List<DepositStrategy> allDepositStrategies() {
+        return List.of(
+                new CheckingDepositStrategy(),
+                new SavingDepositStrategy()
+        );
+    }
 
-            }
-            case WITHDRAW -> {
-                strategies.add(new CheckingWithdrawStrategy());
-                strategies.add(new SavingWithdrawStrategy());
-            }
-            default -> throw new IllegalArgumentException("Unknow strategies type");
+    public static List<WithdrawStrategy> allWithdrawStrategies() {
+        return List.of(
+                new CheckingWithdrawStrategy(),
+                new SavingWithdrawStrategy()
+        );
+    }
+
+    // Méthode générique si tu veux garder le switch
+    public static <S extends OperationStrategy> List<S> strategyListCreate(OperationType operationType) {
+        switch (operationType) {
+            case DEPOSIT:
+                return (List<S>) allDepositStrategies();
+            case WITHDRAW:
+                return (List<S>) allWithdrawStrategies();
+            default:
+                throw new IllegalArgumentException("Unknown strategies type");
         }
-        return (List<T>)strategies;
     }
 }

@@ -1,17 +1,21 @@
 package com.DUONG.BankAccount.domain.service.deposit.strategy;
 
 import com.DUONG.BankAccount.domain.exception.ExceedLimitBalanceException;
+import com.DUONG.BankAccount.domain.model.AccountType;
 import com.DUONG.BankAccount.domain.model.BankAccount;
 import com.DUONG.BankAccount.domain.model.SavingAccount;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
 @Slf4j
+@Component
 public class SavingDepositStrategy extends AbstractDepositStrategy implements DepositStrategy {
 
-    public Class<? extends BankAccount> getAccountType() {
-        return SavingAccount.class;
+    @Override
+    public AccountType getAccountType() {
+        return AccountType.SAVING;
     }
 
     private void checkIfExceedBalance(BankAccount bankAccount, BigDecimal amount) {

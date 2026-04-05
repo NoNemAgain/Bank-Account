@@ -1,11 +1,15 @@
 package com.DUONG.BankAccount.domain.service.deposit.strategy;
 
+import com.DUONG.BankAccount.domain.model.AccountType;
 import com.DUONG.BankAccount.domain.model.BankAccount;
 import com.DUONG.BankAccount.domain.model.CheckingAccount;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CheckingDepositStrategy extends AbstractDepositStrategy implements DepositStrategy {
 
-    public Class<? extends BankAccount> getAccountType() {
-        return CheckingAccount.class;
+    @Override
+    public AccountType getAccountType() {
+        return AccountType.CHECKING;
     }
 }

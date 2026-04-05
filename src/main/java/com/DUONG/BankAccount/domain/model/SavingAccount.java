@@ -25,6 +25,7 @@ public class SavingAccount extends BankAccount {
         this.balanceLimit = balanceLimit;
     }
 
+    @Override
     public AccountType getTypeBank() {
         return AccountType.SAVING;
     }

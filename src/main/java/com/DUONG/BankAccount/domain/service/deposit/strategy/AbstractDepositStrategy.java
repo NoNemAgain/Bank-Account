@@ -1,6 +1,7 @@
 package com.DUONG.BankAccount.domain.service.deposit.strategy;
 
 import com.DUONG.BankAccount.domain.exception.InvalidAmountException;
+import com.DUONG.BankAccount.domain.model.AccountType;
 import com.DUONG.BankAccount.domain.model.BankAccount;
 import lombok.extern.slf4j.Slf4j;
 
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 
 @Slf4j
 public abstract class AbstractDepositStrategy implements DepositStrategy {
+
 
     public void deposit(BankAccount bankAccount, BigDecimal amount) {
         log.info("Deposit requested: accountId={}, amount={}", bankAccount.getId(), amount);
@@ -21,7 +23,7 @@ public abstract class AbstractDepositStrategy implements DepositStrategy {
     }
 
     @Override
-    public abstract Class<? extends BankAccount> getAccountType();
+    public abstract AccountType getAccountType();
 
     protected void checkIfAmountIsPositive(BigDecimal amount) {
         log.debug("Checking if amount is positive:amount={}", amount);

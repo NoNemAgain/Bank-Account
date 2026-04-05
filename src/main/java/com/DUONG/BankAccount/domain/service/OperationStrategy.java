@@ -1,7 +1,7 @@
 package com.DUONG.BankAccount.domain.service;
 
-import com.DUONG.BankAccount.domain.model.BankAccount;
+import com.DUONG.BankAccount.domain.model.AccountType;
 
 public interface OperationStrategy {
-    Class<? extends BankAccount> getAccountType();
+    AccountType getAccountType();
 }

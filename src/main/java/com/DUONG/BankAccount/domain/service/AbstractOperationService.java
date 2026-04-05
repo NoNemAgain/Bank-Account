@@ -4,10 +4,12 @@ import com.DUONG.BankAccount.adapter.out.repository.BankAccountRepository;
 import com.DUONG.BankAccount.adapter.out.repository.OperationRepository;
 import com.DUONG.BankAccount.domain.exception.ObjectNotfoundException;
 import com.DUONG.BankAccount.domain.exception.ObjectType;
+import com.DUONG.BankAccount.domain.model.AccountType;
 import com.DUONG.BankAccount.domain.model.BankAccount;
 import com.DUONG.BankAccount.domain.model.Operation;
 import com.DUONG.BankAccount.domain.model.OperationType;
 import com.DUONG.BankAccount.domain.observer.BankAccountOperationObserver;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,17 +19,26 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Service
 public abstract class AbstractOperationService<S extends OperationStrategy> {
     protected final BankAccountRepository accountRepository;
-    private final Map<Class<? extends BankAccount>, S> strategies;
+    protected final Map<AccountType, S> strategies;
     private final List<BankAccountOperationObserver> observers = new ArrayList<>();
     protected final OperationRepository operationRepository;
 
-    public AbstractOperationService(BankAccountRepository bankAccountRepository, OperationRepository operationRepository, List<S> strategyList) {
+    public AbstractOperationService(BankAccountRepository bankAccountRepository,
+                                    OperationRepository operationRepository,
+                                    List<S> strategyList) {
         this.accountRepository = bankAccountRepository;
         this.operationRepository = operationRepository;
-        strategies = strategyList.stream().collect(
-                Collectors.toMap(s -> s.getAccountType(), s -> s));
+        this.strategies = strategyList.stream()
+                .collect(Collectors.toMap(OperationStrategy::getAccountType, s -> s));
+        System.out.println(strategies);
+    }
+
+    public S getStrategyFor(BankAccount bankAccount) {
+        System.out.println(strategies);
+        return this.strategies.get(bankAccount.getTypeBank());
     }
 
     public BankAccount getAccountById(UUID bankAccountId) {
@@ -35,10 +46,6 @@ public abstract class AbstractOperationService<S extends OperationStrategy> {
                 .orElseThrow(() -> new ObjectNotfoundException(ObjectType.BANK));
 
         return bankAccount;
-    }
-
-    public S getStrategyFor(BankAccount bankAccount) {
-        return strategies.get(bankAccount.getClass());
     }
 
     public void saveBankAccount(BankAccount bankAccount) {

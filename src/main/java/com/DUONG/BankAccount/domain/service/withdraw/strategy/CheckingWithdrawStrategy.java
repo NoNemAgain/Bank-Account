@@ -1,13 +1,16 @@
 package com.DUONG.BankAccount.domain.service.withdraw.strategy;
 
 import com.DUONG.BankAccount.domain.exception.InsufficientFundsBalanceException;
+import com.DUONG.BankAccount.domain.model.AccountType;
 import com.DUONG.BankAccount.domain.model.BankAccount;
 import com.DUONG.BankAccount.domain.model.CheckingAccount;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
 @Slf4j
+@Component
 public class CheckingWithdrawStrategy extends AbstractWithdrawStrategy implements WithdrawStrategy {
 
     @Override
@@ -37,8 +40,8 @@ public class CheckingWithdrawStrategy extends AbstractWithdrawStrategy implement
         }
     }
 
-    public Class<? extends BankAccount> getAccountType() {
-        return CheckingAccount.class;
+    public AccountType getAccountType() {
+        return AccountType.CHECKING;
     }
 
     @Override
