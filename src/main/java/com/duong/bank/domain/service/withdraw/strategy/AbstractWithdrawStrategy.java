@@ -2,7 +2,6 @@ package com.duong.bank.domain.service.withdraw.strategy;
 
 import com.duong.bank.domain.exception.InsufficientFundsBalanceException;
 import com.duong.bank.domain.exception.InvalidAmountException;
-import com.duong.bank.domain.model.AccountType;
 import com.duong.bank.domain.model.BankAccount;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,10 +20,6 @@ public abstract class AbstractWithdrawStrategy implements WithdrawStrategy {
 
         bankAccount.setBalance(bankAccount.getBalance().subtract(amount));
     }
-
-    @Override
-    public abstract AccountType getAccountType();
-
 
     protected void checkIfAmountIsPositive(BigDecimal amount) {
         log.debug("Checking if amount is positive:amount={}", amount);

@@ -26,7 +26,7 @@ public abstract class AbstractOperationService<S extends OperationStrategy> {
     private final List<BankAccountOperationObserver> observers = new ArrayList<>();
     protected final OperationRepository operationRepository;
 
-    public AbstractOperationService(BankAccountRepository bankAccountRepository,
+    protected AbstractOperationService(BankAccountRepository bankAccountRepository,
                                     OperationRepository operationRepository,
                                     List<S> strategyList) {
         this.accountRepository = bankAccountRepository;
