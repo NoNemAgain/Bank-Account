@@ -21,14 +21,13 @@ public class CheckingWithdrawStrategy extends AbstractWithdrawStrategy implement
 
         log.debug("Check if the balance will exceed overdaft limit : overdraftLimit={}, amount={}", overdraftLimit, amount);
 
-        if ((finalBalance.compareTo(overdraftLimit) < 0) && (overdraftAllowed)) {
+        if (finalBalance.compareTo(overdraftLimit) < 0 && overdraftAllowed) {
             throw new InsufficientFundsBalanceException();
 
         }
     }
 
     protected void checkIfOverdraftAllowed(BankAccount bankAccount, BigDecimal amount) {
-        BigDecimal overdraftLimit = ((CheckingAccount) bankAccount).getOverdraftLimit();
         Boolean overdraftAllowed = ((CheckingAccount) bankAccount).isOverdraftAllowed();
         BigDecimal finalBalance = bankAccount.getBalance().subtract(amount);
 
