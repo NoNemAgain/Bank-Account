@@ -1,5 +1,6 @@
 package com.duong.bank.E2E;
 
+import com.duong.bank.AbstractIntegrationTest;
 import com.duong.bank.BankAccountFactory;
 import com.duong.bank.adapter.out.repository.BankAccountRepository;
 import com.duong.bank.domain.exception.ObjectNotfoundException;
@@ -10,10 +11,7 @@ import com.duong.bank.domain.model.SavingAccount;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -25,10 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@ActiveProfiles("test")
-@AutoConfigureMockMvc
-public class BankE2ETest {
+public class BankE2ETest extends AbstractIntegrationTest {
 
     private MockMvc mockMvc;
 

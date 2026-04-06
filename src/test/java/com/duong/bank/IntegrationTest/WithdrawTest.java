@@ -1,5 +1,6 @@
 package com.duong.bank.IntegrationTest;
 
+import com.duong.bank.AbstractIntegrationTest;
 import com.duong.bank.BankAccountFactory;
 import com.duong.bank.adapter.out.repository.BankAccountRepository;
 import com.duong.bank.domain.model.AccountType;
@@ -7,8 +8,6 @@ import com.duong.bank.domain.model.CheckingAccount;
 import com.duong.bank.domain.model.SavingAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -18,9 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-public class WithdrawTest {
+public class WithdrawTest extends AbstractIntegrationTest {
 
     MockMvc mockMvc;
 
