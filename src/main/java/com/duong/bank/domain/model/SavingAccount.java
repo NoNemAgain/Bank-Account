@@ -17,7 +17,6 @@ import java.util.UUID;
 public class SavingAccount extends BankAccount {
     private BigDecimal balanceLimit;
 
-
     public SavingAccount(UUID id, BigDecimal balance,
                          List<Operation> operationsHistory, List<BankStatement> bankStatements,
                          BigDecimal balanceLimit) {

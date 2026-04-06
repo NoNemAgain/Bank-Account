@@ -36,7 +36,6 @@ public abstract class BankAccount {
     @JsonManagedReference
     private List<BankStatement> bankStatements = new ArrayList<>();
 
-
     public abstract AccountType getTypeBank();
 
     public void addOperation(Operation operation) {

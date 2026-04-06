@@ -24,9 +24,7 @@ public class BankStatementTest {
 
     private MockMvc mockMvc;
 
-
     private BankAccountRepository bankAccountRepository;
-
 
     @BeforeEach
     void setUp(WebApplicationContext context) {
