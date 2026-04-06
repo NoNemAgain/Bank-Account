@@ -52,6 +52,7 @@ public class BankStatementService implements BankStatementPort {
         bankStatement.setBankAccount(bankAccount);
         bankStatement.setBalance(bankAccount.getBalance());
         bankStatement.setDate(LocalDateTime.now());
+        bankStatement.setOperations(bankAccount.getOperationsHistory());
 
         return bankStatement;
     }
@@ -64,6 +65,7 @@ public class BankStatementService implements BankStatementPort {
                 bankAccount.getOperationsHistory().stream()
                         .filter(operation -> !operation.getDate().isBefore(oneMonthAgo))
                         .sorted(Comparator.comparing(Operation::getDate).reversed()).toList());
+        bankStatement.getOperations().stream().forEach(operation -> operation.setBankStatement(bankStatement));
 
     }
 }
