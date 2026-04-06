@@ -1,37 +1,43 @@
 package com.duong.bank.unitTest.controller;
 
 import com.duong.bank.BankAccountFactory;
+import com.duong.bank.adapter.in.controller.BankStatementController;
 import com.duong.bank.adapter.out.repository.BankAccountRepository;
 import com.duong.bank.domain.model.AccountType;
+import com.duong.bank.domain.model.BankStatement;
 import com.duong.bank.domain.model.CheckingAccount;
+import com.duong.bank.port.in.BankStatementPort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
-import org.springframework.test.context.ActiveProfiles;
+import org.mockito.Mockito;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@ActiveProfiles("test")
-@AutoConfigureMockMvc
 public class BankStatementTest {
 
     private MockMvc mockMvc;
 
-
     private BankAccountRepository bankAccountRepository;
+    private BankStatementPort bankStatementPort;
 
+    private BankStatementController bankStatementController;
 
     @BeforeEach
-    void setUp(WebApplicationContext context) {
-        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-        bankAccountRepository = context.getBean(BankAccountRepository.class);
+    void setUp() {
+        bankStatementPort = Mockito.mock(BankStatementPort.class);
+        bankAccountRepository = Mockito.mock(BankAccountRepository.class);
+
+        bankStatementController = new BankStatementController(bankStatementPort);
+
+        mockMvc = MockMvcBuilders.standaloneSetup(bankStatementController).build();
     }
 
     @Test
@@ -39,13 +45,22 @@ public class BankStatementTest {
         //Given
         CheckingAccount checkingAccount = (CheckingAccount) BankAccountFactory
                 .bankAccountCreateTest(AccountType.CHECKING);
+        checkingAccount.setId(UUID.randomUUID());
+        BankStatement bankStatement = new BankStatement();
+        bankStatement.setId(UUID.randomUUID());
+        bankStatement.setDate(LocalDateTime.now());
+        bankStatement.setBankAccount(checkingAccount);
+        bankStatement.setBalance(checkingAccount.getBalance());
+        bankStatement.setAccountType(checkingAccount.getTypeBank());
+        bankStatement.setOperations(checkingAccount.getOperationsHistory());
 
-        CheckingAccount saveCheckingAccount = bankAccountRepository.save(checkingAccount);
+        //WHEN
+        when(bankStatementPort.createBankStatement(checkingAccount.getId()))
+                .thenReturn(bankStatement);
 
-        //WHEN //THEN
-        mockMvc.perform(post("/api/bankStatements/" + saveCheckingAccount.getId()))
+         //THEN
+        mockMvc.perform(post("/api/bankStatements/" + checkingAccount.getId()))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.accountType").value(AccountType.CHECKING.toString()));
-
     }
 }
