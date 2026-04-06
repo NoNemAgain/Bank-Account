@@ -1,6 +1,7 @@
 package com.duong.bank.domain.model;
 
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity
+@DiscriminatorValue("CHECKNG")
 public class CheckingAccount extends BankAccount {
 
 
