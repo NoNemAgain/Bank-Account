@@ -85,6 +85,7 @@ mvn test
 ## 🔗 Endpoints
 - `PATCH /api/bank-accounts/{id}/deposit` – deposit money into an account
 - `PATCH /api/bank-accounts/{id}/withdraw` – withdraw money from an account
+- `POST /api/bankStatements/{idBankAcc}` – create a statement to get all the operations from the last month
 
 ---
 
