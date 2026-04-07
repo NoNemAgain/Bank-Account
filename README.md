@@ -70,7 +70,7 @@ docker-compose up -d
 - Unit Tests: focus on individual services and controllers
 - Integration Tests: test end-to-end flows with the real database context
 - E2E Tests: using MockMvc to simulate API calls
-- SQL Container Tests: PostgreSQL containers are used via Testcontainers to test database interactions in a realistic environment
+  - SQL Container Tests: PostgreSQL containers are used via Testcontainers to test database interactions in a realistic environment
 
 Run all tests:
 ```bash
