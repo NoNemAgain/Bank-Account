@@ -56,15 +56,18 @@ mvn spring-boot:run
 The application runs on http://localhost:8080
 
 ---
+### 🐳 Docker Setup (Production by default)
 
-### 🐳 Docker Setup
-Start a local database container:
+- The project now uses Docker by default with PostgreSQL for both development and production environments.
+
+- Start the PostgreSQL container:
 
 ```bash
 docker-compose up -d
 ```
-
-- Make sure your application.properties points to the Docker DB connection.
+- The application will automatically connect to the Docker PostgreSQL instance.
+- No local database setup is required.
+- Ensure your application.properties points to the Docker DB connection (default is jdbc:postgresql://localhost:5436/bank_db with username/password postgres).
 
 ### 🧪 Testing
 - Unit Tests: focus on individual services and controllers
