@@ -1,51 +1,43 @@
 package com.duong.bank;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 
 @Testcontainers
 @SpringBootTest
 @ActiveProfiles("test")
 public abstract class AbstractIntegrationTest {
-
-    protected static final PostgreSQLContainer<?> postgresContainer =
-            new PostgreSQLContainer<>("postgres:15")
-                    .withDatabaseName("bankdb")
-                    .withUsername("postgres")
-                    .withPassword("postgres");
-
-    static {
-        postgresContainer.start();
-    }
+    ;
 
     @DynamicPropertySource
-    static void registerDataSourceProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgresContainer::getJdbcUrl);
-        registry.add("spring.datasource.username", postgresContainer::getUsername);
-        registry.add("spring.datasource.password", postgresContainer::getPassword);
+    static void properties(DynamicPropertyRegistry registry) {
+        PostgreSQLContainer<?> container = PostgresTestContainer.getInstance();
+        registry.add("spring.datasource.url", container::getJdbcUrl);
+        registry.add("spring.datasource.username", container::getUsername);
+        registry.add("spring.datasource.password", container::getPassword);
+        registry.add("spring.jpa.hibernate.ddl-auto", () -> "create-drop");
     }
 
-    @Test
-    void testTables() throws SQLException {
-        try (Connection conn = DriverManager.getConnection(
-                postgresContainer.getJdbcUrl(),
-                postgresContainer.getUsername(),
-                postgresContainer.getPassword())) {
+    @Autowired
+    protected JdbcTemplate jdbcTemplate;
 
-            ResultSet rs = conn.getMetaData().getTables(null, null, "bank_account", null);
-            if (!rs.next()) {
-                throw new RuntimeException("bank_account table does not exist yet!");
-            }
-        }
+    @Test
+    void testBankAccountTableExists() {
+        Integer count = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM information_schema.tables WHERE table_name='bank_account'",
+                Integer.class
+        );
+        assertNotNull(count);
+        assertTrue(count > 0, "bank_account table not found ");
     }
 }
