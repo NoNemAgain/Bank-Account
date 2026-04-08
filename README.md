@@ -51,9 +51,14 @@ Project designed and implemented entirely by **Thomas Duong**.
 - Start PostgreSQL (local or external)
 
 - Make sure PostgreSQL is running and matches your configuration:
+```bash
+spring.datasource.url=jdbc:postgresql://localhost:5432/bank_db
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+```
 
-- Spring.datasource.url=jdbc:postgresql://localhost:5432/bank_db
 - Run the application
+- 
 ```bash
 mvn clean install
 mvn spring-boot:run
@@ -70,8 +75,10 @@ docker compose up --build
 
 - Application will be available at:
 
-- http://localhost:8080
-
+```bash
+http://localhost:8080
+```
+- Docker will handle the database connection automatically using the .env file.
 - The application runs on http://localhost:8080
 
 ---
@@ -86,7 +93,12 @@ docker-compose up -d
 ```
 - The application will automatically connect to the Docker PostgreSQL instance.
 - No local database setup is required.
-- Ensure your application.properties points to the Docker DB connection (default is jdbc:postgresql://localhost:5436/bank_db with username/password postgres).
+- Ensure your application.properties (or .env) points to the Docker DB connection. Default:
+```bash
+spring.datasource.url=jdbc:postgresql://localhost:5436/bank_db
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+```
 
 ### 🧪 Testing
 - Unit Tests: focus on individual services and controllers
