@@ -47,58 +47,41 @@ Project designed and implemented entirely by **Thomas Duong**.
 - Docker / Docker Compose
 - PostgreSQL
 
-### 🟢 Option 1 — Run locally (without Docker)
-- Start PostgreSQL (local or external)
+## 🟢 Local Development
 
-- Make sure PostgreSQL is running and matches your configuration:
+You can run the application in development using two methods:
+
+### **Option 1 — With Docker (recommended)**
 ```bash
-spring.datasource.url=jdbc:postgresql://localhost:5432/bank_db
-spring.datasource.username=postgres
-spring.datasource.password=postgres
+docker compose --env-file .env.dev up --build
 ```
 
-- Run the application
-- 
+- Uses the .env.dev file.
+- Runs both the backend and PostgreSQL in containers.
+- The backend automatically connects to PostgreSQL via the hostname postgres.
+- Application available at http://localhost:8080.
+
+### **Option 2 — With local PostgreSQL**
+
 ```bash
 mvn clean install
 mvn spring-boot:run
 ```
+- Database must be accessible via localhost:5432.
+- Credentials are defined in .env.dev.
 
-### 🐳 Option 2 — Run with Docker (recommended)
+### **🐳 Production**
+- .env.prod should be used for production.
+- hibernate.ddl-auto=validate ensures the DB matches entities, but does not create or update tables.
 
-- This will start both the backend and PostgreSQL.
-
-
-```bash
-docker compose up --build
-```
-
-- Application will be available at:
+### **Run with Docker in production**
 
 ```bash
-http://localhost:8080
+docker compose --env-file .env.prod up --build
 ```
-- Docker will handle the database connection automatically using the .env file.
-- The application runs on http://localhost:8080
+- Ensure the remote database is accessible from the backend container.
+- Application runs on the configured port (e.g., 8080).
 
----
-### 🐳 Docker Setup (Production by default)
-
-- The project now uses Docker by default with PostgreSQL for both development and production environments.
-
-- Start the PostgreSQL container:
-
-```bash
-docker-compose up -d
-```
-- The application will automatically connect to the Docker PostgreSQL instance.
-- No local database setup is required.
-- Ensure your application.properties (or .env) points to the Docker DB connection. Default:
-```bash
-spring.datasource.url=jdbc:postgresql://localhost:5436/bank_db
-spring.datasource.username=postgres
-spring.datasource.password=postgres
-```
 
 ### 🧪 Testing
 - Unit Tests: focus on individual services and controllers
@@ -129,7 +112,9 @@ mvn test
 - Observer pattern automatically updates the operations history
 - Adapters in the hexagonal architecture separate domain logic from external dependencies
 - Dependency injection is used extensively for testability and decoupling
+- Always use .env.dev for local development.
 - Only consultation and sharing of the project are allowed – no commercial use
+
 
 ---
 
