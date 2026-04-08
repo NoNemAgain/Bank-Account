@@ -36,7 +36,6 @@ Project designed and implemented entirely by **Thomas Duong**.
 - **Strategy Pattern** – flexible handling of deposit and withdrawal operations
 - **Factory Pattern** – creation of accounts, operations, and strategies
 - **Singleton Pattern** – ensures unique instances where necessary
-- **Facade Pattern** – simplified interface for complex operations
 
 ---
 
@@ -45,15 +44,35 @@ Project designed and implemented entirely by **Thomas Duong**.
 ### Prerequisites
 - Java 17+
 - Maven 3.8+
-- Docker (optional) for local database or H2 embedded
+- Docker / Docker Compose
+- PostgreSQL
 
-### Build & Run
+### 🟢 Option 1 — Run locally (without Docker)
+- Start PostgreSQL (local or external)
+
+- Make sure PostgreSQL is running and matches your configuration:
+
+- Spring.datasource.url=jdbc:postgresql://localhost:5432/bank_db
+- Run the application
 ```bash
 mvn clean install
 mvn spring-boot:run
 ```
 
-The application runs on http://localhost:8080
+### 🐳 Option 2 — Run with Docker (recommended)
+
+- This will start both the backend and PostgreSQL.
+
+
+```bash
+docker compose up --build
+```
+
+- Application will be available at:
+
+- http://localhost:8080
+
+- The application runs on http://localhost:8080
 
 ---
 ### 🐳 Docker Setup (Production by default)
