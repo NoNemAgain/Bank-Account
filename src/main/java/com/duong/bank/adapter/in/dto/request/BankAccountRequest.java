@@ -12,10 +12,10 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BankAccountRequest {
+public abstract class BankAccountRequest {
 
     private BigDecimal balance;
 
-    private AccountType typeBank;
+    public abstract AccountType getTypeBank();
 
 }

@@ -17,7 +17,6 @@ public class CreateBankAccountUseCase implements CreateBankAccountPort {
 
     @Override
     public BankAccount createBankAccount(BankAccount bankAccount) {
-
         return bankAccountRepository.save(bankAccount);
     }
 }
