@@ -1,9 +1,9 @@
 package com.duong.bank.adapter.in.controller;
 
 
-import com.duong.bank.adapter.in.dto.BankStatementDTO;
+import com.duong.bank.adapter.in.dto.response.BankStatementResponse;
 import com.duong.bank.adapter.mapper.BankStatementMapper;
-import com.duong.bank.port.in.BankStatementPort;
+import com.duong.bank.port.in.CreateBankStatementPort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,19 +17,19 @@ import java.util.UUID;
 @RequestMapping("/api/bankStatements")
 public class BankStatementController {
 
-    private final BankStatementPort bankStatementPort;
+    private final CreateBankStatementPort createBankStatementPort;
 
-    public BankStatementController(BankStatementPort bankStatementPort) {
-        this.bankStatementPort = bankStatementPort;
+    public BankStatementController(CreateBankStatementPort createBankStatementPort) {
+        this.createBankStatementPort = createBankStatementPort;
     }
 
     @PostMapping("/{idBankAcc}")
-    public ResponseEntity<BankStatementDTO> generateBankStatement(@PathVariable UUID idBankAcc) {
+    public ResponseEntity<BankStatementResponse> generateBankStatement(@PathVariable UUID idBankAcc) {
 
-        BankStatementDTO bankStatementDTO = BankStatementMapper.toDTO(bankStatementPort.createBankStatement(idBankAcc));
+        BankStatementResponse bankStatementResponse = BankStatementMapper.toDTO(createBankStatementPort.createBankStatement(idBankAcc));
 
-        return ResponseEntity.created(URI.create("/bank-statements/" + bankStatementDTO.getId()))
-                .body(bankStatementDTO);
+        return ResponseEntity.created(URI.create("/bank-statements/" + bankStatementResponse.getId()))
+                .body(bankStatementResponse);
     }
 
 }

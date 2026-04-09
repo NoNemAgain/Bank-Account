@@ -6,7 +6,7 @@ import com.duong.bank.adapter.out.repository.BankAccountRepository;
 import com.duong.bank.domain.model.AccountType;
 import com.duong.bank.domain.model.BankStatement;
 import com.duong.bank.domain.model.CheckingAccount;
-import com.duong.bank.port.in.BankStatementPort;
+import com.duong.bank.port.in.CreateBankStatementPort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -26,16 +26,16 @@ public class BankStatementTest {
     private MockMvc mockMvc;
 
     private BankAccountRepository bankAccountRepository;
-    private BankStatementPort bankStatementPort;
+    private CreateBankStatementPort createBankStatementPort;
 
     private BankStatementController bankStatementController;
 
     @BeforeEach
     void setUp() {
-        bankStatementPort = Mockito.mock(BankStatementPort.class);
+        createBankStatementPort = Mockito.mock(CreateBankStatementPort.class);
         bankAccountRepository = Mockito.mock(BankAccountRepository.class);
 
-        bankStatementController = new BankStatementController(bankStatementPort);
+        bankStatementController = new BankStatementController(createBankStatementPort);
 
         mockMvc = MockMvcBuilders.standaloneSetup(bankStatementController).build();
     }
@@ -55,10 +55,10 @@ public class BankStatementTest {
         bankStatement.setOperations(checkingAccount.getOperationsHistory());
 
         //WHEN
-        when(bankStatementPort.createBankStatement(checkingAccount.getId()))
+        when(createBankStatementPort.createBankStatement(checkingAccount.getId()))
                 .thenReturn(bankStatement);
 
-         //THEN
+        //THEN
         mockMvc.perform(post("/api/bankStatements/" + checkingAccount.getId()))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.accountType").value(AccountType.CHECKING.toString()));
