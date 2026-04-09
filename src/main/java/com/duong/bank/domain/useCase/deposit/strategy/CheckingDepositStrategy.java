@@ -1,4 +1,4 @@
-package com.duong.bank.domain.service.deposit.strategy;
+package com.duong.bank.domain.useCase.deposit.strategy;
 
 import com.duong.bank.domain.model.AccountType;
 import org.springframework.stereotype.Component;

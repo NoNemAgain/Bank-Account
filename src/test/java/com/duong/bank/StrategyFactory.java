@@ -1,13 +1,13 @@
 package com.duong.bank;
 
 import com.duong.bank.domain.model.OperationType;
-import com.duong.bank.domain.service.OperationStrategy;
-import com.duong.bank.domain.service.deposit.strategy.CheckingDepositStrategy;
-import com.duong.bank.domain.service.deposit.strategy.DepositStrategy;
-import com.duong.bank.domain.service.deposit.strategy.SavingDepositStrategy;
-import com.duong.bank.domain.service.withdraw.strategy.CheckingWithdrawStrategy;
-import com.duong.bank.domain.service.withdraw.strategy.SavingWithdrawStrategy;
-import com.duong.bank.domain.service.withdraw.strategy.WithdrawStrategy;
+import com.duong.bank.domain.useCase.OperationStrategy;
+import com.duong.bank.domain.useCase.deposit.strategy.CheckingDepositStrategy;
+import com.duong.bank.domain.useCase.deposit.strategy.DepositStrategy;
+import com.duong.bank.domain.useCase.deposit.strategy.SavingDepositStrategy;
+import com.duong.bank.domain.useCase.withdraw.strategy.CheckingWithdrawStrategy;
+import com.duong.bank.domain.useCase.withdraw.strategy.SavingWithdrawStrategy;
+import com.duong.bank.domain.useCase.withdraw.strategy.WithdrawStrategy;
 
 import java.util.List;
 

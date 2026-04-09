@@ -1,8 +1,8 @@
-package com.duong.bank.domain.service.withdraw.strategy;
+package com.duong.bank.domain.useCase.withdraw.strategy;
 
 import com.duong.bank.domain.model.AccountType;
 import com.duong.bank.domain.model.BankAccount;
-import com.duong.bank.domain.service.OperationStrategy;
+import com.duong.bank.domain.useCase.OperationStrategy;
 
 import java.math.BigDecimal;
 

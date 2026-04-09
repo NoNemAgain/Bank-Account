@@ -1,4 +1,4 @@
-package com.duong.bank.domain.service;
+package com.duong.bank.domain.useCase;
 
 import com.duong.bank.domain.model.AccountType;
 

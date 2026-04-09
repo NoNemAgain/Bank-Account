@@ -1,12 +1,12 @@
-package com.duong.bank.domain.service.withdraw.service;
+package com.duong.bank.domain.useCase.withdraw;
 
 import com.duong.bank.adapter.out.repository.BankAccountRepository;
 import com.duong.bank.adapter.out.repository.OperationRepository;
 import com.duong.bank.domain.model.BankAccount;
 import com.duong.bank.domain.model.Operation;
 import com.duong.bank.domain.model.OperationType;
-import com.duong.bank.domain.service.AbstractOperationService;
-import com.duong.bank.domain.service.withdraw.strategy.WithdrawStrategy;
+import com.duong.bank.domain.useCase.AbstractOperationService;
+import com.duong.bank.domain.useCase.withdraw.strategy.WithdrawStrategy;
 import com.duong.bank.port.in.WithdrawPort;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +16,9 @@ import java.util.UUID;
 
 
 @Service
-public class WithdrawService extends AbstractOperationService<WithdrawStrategy> implements WithdrawPort {
+public class WithdrawUseCase extends AbstractOperationService<WithdrawStrategy> implements WithdrawPort {
 
-    public WithdrawService(BankAccountRepository accountRepository, OperationRepository operationRepository, List<WithdrawStrategy> strategyList) {
+    public WithdrawUseCase(BankAccountRepository accountRepository, OperationRepository operationRepository, List<WithdrawStrategy> strategyList) {
         super(accountRepository, operationRepository, strategyList);
     }
 

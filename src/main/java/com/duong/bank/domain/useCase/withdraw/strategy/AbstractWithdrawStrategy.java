@@ -1,4 +1,4 @@
-package com.duong.bank.domain.service.withdraw.strategy;
+package com.duong.bank.domain.useCase.withdraw.strategy;
 
 import com.duong.bank.domain.exception.InsufficientFundsBalanceException;
 import com.duong.bank.domain.exception.InvalidAmountException;

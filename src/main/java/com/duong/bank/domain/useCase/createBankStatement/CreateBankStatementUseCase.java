@@ -1,4 +1,4 @@
-package com.duong.bank.domain.service.bankStatement.service;
+package com.duong.bank.domain.useCase.createBankStatement;
 
 import com.duong.bank.adapter.out.repository.BankAccountRepository;
 import com.duong.bank.adapter.out.repository.BankStatementRepository;
@@ -7,7 +7,7 @@ import com.duong.bank.domain.exception.ObjectType;
 import com.duong.bank.domain.model.BankAccount;
 import com.duong.bank.domain.model.BankStatement;
 import com.duong.bank.domain.model.Operation;
-import com.duong.bank.port.in.BankStatementPort;
+import com.duong.bank.port.in.CreateBankStatementPort;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +17,13 @@ import java.util.UUID;
 
 @Slf4j
 @Service
-public class BankStatementService implements BankStatementPort {
+public class CreateBankStatementUseCase implements CreateBankStatementPort {
 
     private final BankStatementRepository bankStatementRepository;
 
     private final BankAccountRepository bankAccountRepository;
 
-    public BankStatementService(BankStatementRepository bankStatementRepository, BankAccountRepository bankAccountRepository) {
+    public CreateBankStatementUseCase(BankStatementRepository bankStatementRepository, BankAccountRepository bankAccountRepository) {
         this.bankStatementRepository = bankStatementRepository;
         this.bankAccountRepository = bankAccountRepository;
     }

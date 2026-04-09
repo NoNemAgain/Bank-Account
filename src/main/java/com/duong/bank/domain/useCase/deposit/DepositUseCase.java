@@ -1,12 +1,12 @@
-package com.duong.bank.domain.service.deposit.service;
+package com.duong.bank.domain.useCase.deposit;
 
 import com.duong.bank.adapter.out.repository.BankAccountRepository;
 import com.duong.bank.adapter.out.repository.OperationRepository;
 import com.duong.bank.domain.model.BankAccount;
 import com.duong.bank.domain.model.Operation;
 import com.duong.bank.domain.model.OperationType;
-import com.duong.bank.domain.service.AbstractOperationService;
-import com.duong.bank.domain.service.deposit.strategy.DepositStrategy;
+import com.duong.bank.domain.useCase.AbstractOperationService;
+import com.duong.bank.domain.useCase.deposit.strategy.DepositStrategy;
 import com.duong.bank.port.in.DepositPort;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +16,8 @@ import java.util.UUID;
 
 
 @Service
-public class DepositService extends AbstractOperationService<DepositStrategy> implements DepositPort {
-    public DepositService(BankAccountRepository accountRepository, OperationRepository operationRepository, List<DepositStrategy> strategyList) {
+public class DepositUseCase extends AbstractOperationService<DepositStrategy> implements DepositPort {
+    public DepositUseCase(BankAccountRepository accountRepository, OperationRepository operationRepository, List<DepositStrategy> strategyList) {
         super(accountRepository, operationRepository, strategyList);
     }
 
