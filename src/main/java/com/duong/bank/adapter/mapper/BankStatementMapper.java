@@ -1,6 +1,6 @@
 package com.duong.bank.adapter.mapper;
 
-import com.duong.bank.adapter.in.dto.BankStatementDTO;
+import com.duong.bank.adapter.in.dto.response.BankStatementResponse;
 import com.duong.bank.domain.model.BankStatement;
 
 public class BankStatementMapper {
@@ -8,9 +8,9 @@ public class BankStatementMapper {
     private BankStatementMapper() {
     }
 
-    public static BankStatementDTO toDTO(BankStatement bankStatement) {
+    public static BankStatementResponse toDTO(BankStatement bankStatement) {
         if (bankStatement == null) return null;
-        return new BankStatementDTO(
+        return new BankStatementResponse(
                 bankStatement.getId(),
                 bankStatement.getAccountType(),
                 bankStatement.getBalance(),

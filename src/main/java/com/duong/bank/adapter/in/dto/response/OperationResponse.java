@@ -1,4 +1,4 @@
-package com.duong.bank.adapter.in.dto;
+package com.duong.bank.adapter.in.dto.response;
 
 import com.duong.bank.domain.model.OperationType;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OperationDTO {
+public class OperationResponse {
     private UUID id;
 
     private OperationType type;

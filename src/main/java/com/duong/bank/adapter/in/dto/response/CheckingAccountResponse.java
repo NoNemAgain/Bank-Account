@@ -1,6 +1,7 @@
-package com.duong.bank.adapter.in.dto;
+package com.duong.bank.adapter.in.dto.response;
 
 
+import com.duong.bank.domain.model.AccountType;
 import com.duong.bank.domain.model.BankStatement;
 import com.duong.bank.domain.model.Operation;
 import lombok.Getter;
@@ -14,17 +15,22 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CheckingAccountDTO extends BankAccountDTO {
+public class CheckingAccountResponse extends BankAccountResponse {
 
     private boolean overdraftAllowed;
 
     private BigDecimal overdraftLimit;
 
-    public CheckingAccountDTO(UUID id, BigDecimal balance, boolean overdraftAllowed,
-                              List<Operation> operationsHistory, List<BankStatement> bankStatements,
-                              BigDecimal overdraftLimit) {
+    public CheckingAccountResponse(UUID id, BigDecimal balance, boolean overdraftAllowed,
+                                   List<Operation> operationsHistory, List<BankStatement> bankStatements,
+                                   BigDecimal overdraftLimit) {
         super(id, balance, operationsHistory, bankStatements);
         this.overdraftAllowed = overdraftAllowed;
         this.overdraftLimit = overdraftLimit;
+    }
+
+    @Override
+    public AccountType getTypeBank() {
+        return AccountType.CHECKING;
     }
 }

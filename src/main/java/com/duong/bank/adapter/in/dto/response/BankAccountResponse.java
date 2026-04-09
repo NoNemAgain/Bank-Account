@@ -1,5 +1,6 @@
-package com.duong.bank.adapter.in.dto;
+package com.duong.bank.adapter.in.dto.response;
 
+import com.duong.bank.domain.model.AccountType;
 import com.duong.bank.domain.model.BankStatement;
 import com.duong.bank.domain.model.Operation;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class BankAccountDTO {
+public abstract class BankAccountResponse {
 
     private UUID id;
 
@@ -25,4 +26,6 @@ public abstract class BankAccountDTO {
     private List<Operation> operationsHistory = new ArrayList<>();
 
     private List<BankStatement> bankStatements = new ArrayList<>();
+
+    public abstract AccountType getTypeBank();
 }

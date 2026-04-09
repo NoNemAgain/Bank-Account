@@ -1,8 +1,9 @@
 package com.duong.bank.adapter.mapper;
 
-import com.duong.bank.adapter.in.dto.BankAccountDTO;
-import com.duong.bank.adapter.in.dto.CheckingAccountDTO;
-import com.duong.bank.adapter.in.dto.SavingAccountDTO;
+import com.duong.bank.adapter.in.dto.request.BankAccountRequest;
+import com.duong.bank.adapter.in.dto.response.BankAccountResponse;
+import com.duong.bank.adapter.in.dto.response.CheckingAccountResponse;
+import com.duong.bank.adapter.in.dto.response.SavingAccountResponse;
 import com.duong.bank.domain.model.BankAccount;
 import com.duong.bank.domain.model.CheckingAccount;
 import com.duong.bank.domain.model.SavingAccount;
@@ -12,13 +13,13 @@ public class BankAccountMapper {
     private BankAccountMapper() {
     }
 
-    public static BankAccountDTO toDTO(BankAccount bankAccount) {
+    public static BankAccountResponse toResponse(BankAccount bankAccount) {
         if (bankAccount == null) return null;
 
         switch (bankAccount.getTypeBank()) {
             case CHECKING -> {
                 CheckingAccount checkingAccount = (CheckingAccount) bankAccount;
-                return new CheckingAccountDTO(
+                return new CheckingAccountResponse(
                         checkingAccount.getId(),
                         checkingAccount.getBalance(),
                         checkingAccount.isOverdraftAllowed(),
@@ -29,7 +30,7 @@ public class BankAccountMapper {
             }
             case SAVING -> {
                 SavingAccount savingAccount = (SavingAccount) bankAccount;
-                return new SavingAccountDTO(
+                return new SavingAccountResponse(
                         savingAccount.getId(),
                         savingAccount.getBalance(),
                         savingAccount.getOperationsHistory(),
@@ -38,6 +39,56 @@ public class BankAccountMapper {
                 );
             }
             default -> throw new IllegalArgumentException("Unknown account type: " + bankAccount.getTypeBank());
+        }
+    }
+
+
+    public static BankAccount responseToEntity(BankAccountResponse bankAccountResponse) {
+        if (bankAccountResponse == null) return null;
+
+        switch (bankAccountResponse.getTypeBank()) {
+            case CHECKING -> {
+                CheckingAccountResponse checkingAccountDTO = (CheckingAccountResponse) bankAccountResponse;
+                return new CheckingAccount(
+                        checkingAccountDTO.getId(),
+                        checkingAccountDTO.getBalance(),
+                        checkingAccountDTO.isOverdraftAllowed(),
+                        checkingAccountDTO.getOperationsHistory(),
+                        checkingAccountDTO.getBankStatements(),
+                        checkingAccountDTO.getOverdraftLimit()
+                );
+            }
+            case SAVING -> {
+                SavingAccountResponse savingAccountDTO = (SavingAccountResponse) bankAccountResponse;
+                return new SavingAccount(
+                        savingAccountDTO.getId(),
+                        savingAccountDTO.getBalance(),
+                        savingAccountDTO.getOperationsHistory(),
+                        savingAccountDTO.getBankStatements(),
+                        savingAccountDTO.getBalanceLimit()
+                );
+            }
+            default -> throw new IllegalArgumentException("Unknown account type: " + bankAccountResponse.getTypeBank());
+        }
+    }
+
+
+    public static BankAccount requestToEntity(BankAccountRequest bankAccountRequest) {
+        if (bankAccountRequest == null) return null;
+
+        switch (bankAccountRequest.getTypeBank()) {
+            case CHECKING -> {
+                CheckingAccount checkingAccount = new CheckingAccount();
+                checkingAccount.setBalance(bankAccountRequest.getBalance());
+                return checkingAccount;
+            }
+            case SAVING -> {
+                SavingAccount savingAccount = new SavingAccount();
+                savingAccount.setBalance(bankAccountRequest.getBalance());
+
+                return savingAccount;
+            }
+            default -> throw new IllegalArgumentException("Unknown account type: " + bankAccountRequest.getTypeBank());
         }
     }
 }
