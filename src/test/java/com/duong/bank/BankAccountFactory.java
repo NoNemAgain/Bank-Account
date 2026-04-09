@@ -6,6 +6,7 @@ import com.duong.bank.domain.model.CheckingAccount;
 import com.duong.bank.domain.model.SavingAccount;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class BankAccountFactory {
     public static BankAccount bankAccountCreateTest(AccountType accountType) {
@@ -23,8 +24,10 @@ public class BankAccountFactory {
             }
             default -> throw new IllegalArgumentException("Unknow account type");
         }
-
         account.setBalance(new BigDecimal("1000"));
+        account.setOperationsHistory(new ArrayList<>());
+        account.setBankStatements(new ArrayList<>());
+
         return account;
     }
 }
