@@ -5,7 +5,7 @@ import com.duong.bank.OperationFactory;
 import com.duong.bank.adapter.out.repository.BankAccountRepository;
 import com.duong.bank.adapter.out.repository.BankStatementRepository;
 import com.duong.bank.domain.model.*;
-import com.duong.bank.domain.service.bankStatement.service.BankStatementService;
+import com.duong.bank.domain.useCase.createBankStatement.CreateBankStatementUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -25,12 +25,12 @@ public class BankStatementTest {
     @Mock
     private BankAccountRepository bankAccountRepository;
 
-    private BankStatementService bankStatementService;
+    private CreateBankStatementUseCase createBankStatementUseCase;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        bankStatementService = new BankStatementService(bankStatementRepository, bankAccountRepository);
+        createBankStatementUseCase = new CreateBankStatementUseCase(bankStatementRepository, bankAccountRepository);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class BankStatementTest {
 
         //WHEN
         when(bankAccountRepository.findById(id)).thenReturn(Optional.of(bankAccount));
-        BankStatement bankStatement = bankStatementService.createBankStatement(id);
+        BankStatement bankStatement = createBankStatementUseCase.createBankStatement(id);
 
         //THEN
         assertEquals(id, bankStatement.getBankAccount().getId());
@@ -65,7 +65,7 @@ public class BankStatementTest {
 
         //WHEN
         when(bankAccountRepository.findById(id)).thenReturn(Optional.of(bankAccount));
-        BankStatement bankStatement = bankStatementService.createBankStatement(id);
+        BankStatement bankStatement = createBankStatementUseCase.createBankStatement(id);
 
         //THEN
         assertEquals(2, bankStatement.getOperations().size());
@@ -85,7 +85,7 @@ public class BankStatementTest {
 
         //WHEN
         when(bankAccountRepository.findById(id)).thenReturn(Optional.of(bankAccount));
-        BankStatement bankStatement = bankStatementService.createBankStatement(id);
+        BankStatement bankStatement = createBankStatementUseCase.createBankStatement(id);
 
         //THEN
         assertEquals(operation3.getId(), bankStatement.getOperations().get(0).getId());

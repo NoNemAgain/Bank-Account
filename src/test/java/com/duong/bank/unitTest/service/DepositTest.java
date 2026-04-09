@@ -10,8 +10,8 @@ import com.duong.bank.domain.model.AccountType;
 import com.duong.bank.domain.model.CheckingAccount;
 import com.duong.bank.domain.model.OperationType;
 import com.duong.bank.domain.model.SavingAccount;
-import com.duong.bank.domain.service.deposit.service.DepositService;
-import com.duong.bank.domain.service.deposit.strategy.DepositStrategy;
+import com.duong.bank.domain.useCase.deposit.DepositUseCase;
+import com.duong.bank.domain.useCase.deposit.strategy.DepositStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -34,7 +34,7 @@ public class DepositTest {
     @Mock
     private OperationRepository operationRepository;
 
-    private DepositService depositService;
+    private DepositUseCase depositUseCase;
 
     @BeforeEach
     void setUp() {
@@ -42,7 +42,7 @@ public class DepositTest {
 
         List<DepositStrategy> strategies = StrategyFactory.strategyListCreate(OperationType.DEPOSIT);
 
-        depositService = new DepositService(bankAccountRepository, operationRepository, strategies);
+        depositUseCase = new DepositUseCase(bankAccountRepository, operationRepository, strategies);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class DepositTest {
 
         //WHEN
         when(bankAccountRepository.findById(id)).thenReturn(Optional.of(checkingAccount));
-        depositService.deposit(id, new BigDecimal("200.00"));
+        depositUseCase.deposit(id, new BigDecimal("200.00"));
 
         //THEN
         assertEquals(new BigDecimal("1200.00"), checkingAccount.getBalance());
@@ -73,7 +73,7 @@ public class DepositTest {
 
         //WHEN
         when(bankAccountRepository.findById(id)).thenReturn(Optional.of(savingAccount));
-        depositService.deposit(id, new BigDecimal("200.00"));
+        depositUseCase.deposit(id, new BigDecimal("200.00"));
 
         //THEN
         assertEquals(new BigDecimal("1200.00"), savingAccount.getBalance());
@@ -89,7 +89,7 @@ public class DepositTest {
 
         //THEN
         assertThrows(InvalidAmountException.class, () -> {
-            depositService.deposit(savingAccount.getId(), new BigDecimal("-200.00"));
+            depositUseCase.deposit(savingAccount.getId(), new BigDecimal("-200.00"));
         });
     }
 
@@ -104,7 +104,7 @@ public class DepositTest {
 
         //THEN
         assertThrows(ExceedLimitBalanceException.class, () -> {
-            depositService.deposit(savingAccount.getId(), new BigDecimal("500.00"));
+            depositUseCase.deposit(savingAccount.getId(), new BigDecimal("500.00"));
         });
     }
 }

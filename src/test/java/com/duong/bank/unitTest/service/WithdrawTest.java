@@ -10,8 +10,8 @@ import com.duong.bank.domain.model.AccountType;
 import com.duong.bank.domain.model.CheckingAccount;
 import com.duong.bank.domain.model.OperationType;
 import com.duong.bank.domain.model.SavingAccount;
-import com.duong.bank.domain.service.withdraw.service.WithdrawService;
-import com.duong.bank.domain.service.withdraw.strategy.WithdrawStrategy;
+import com.duong.bank.domain.useCase.withdraw.WithdrawUseCase;
+import com.duong.bank.domain.useCase.withdraw.strategy.WithdrawStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -37,7 +37,7 @@ public class WithdrawTest {
     @Mock
     private OperationRepository operationRepository;
 
-    private WithdrawService withdrawService;
+    private WithdrawUseCase withdrawUseCase;
 
     @BeforeEach
     void setUp() {
@@ -45,7 +45,7 @@ public class WithdrawTest {
 
         List<WithdrawStrategy> strategies = StrategyFactory.strategyListCreate(OperationType.WITHDRAW);
 
-        withdrawService = new WithdrawService(bankAccountRepository, operationRepository, strategies);
+        withdrawUseCase = new WithdrawUseCase(bankAccountRepository, operationRepository, strategies);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class WithdrawTest {
 
         //WHEN
         when(bankAccountRepository.findById(id)).thenReturn(Optional.of(savingAccount));
-        withdrawService.withdraw(id, new BigDecimal("200.00"));
+        withdrawUseCase.withdraw(id, new BigDecimal("200.00"));
 
         //THEN
         assertEquals(new BigDecimal("800.00"), savingAccount.getBalance());
@@ -77,7 +77,7 @@ public class WithdrawTest {
 
         //WHEN
         when(bankAccountRepository.findById(id)).thenReturn(Optional.of(checkingAccount));
-        withdrawService.withdraw(id, new BigDecimal("300.00"));
+        withdrawUseCase.withdraw(id, new BigDecimal("300.00"));
 
         //THEN
         assertEquals(new BigDecimal("700.00"), checkingAccount.getBalance());
@@ -96,7 +96,7 @@ public class WithdrawTest {
 
         //THEN
         assertThrows(InvalidAmountException.class, () -> {
-            withdrawService.withdraw(savingAccount.getId(), new BigDecimal("-200.00"));
+            withdrawUseCase.withdraw(savingAccount.getId(), new BigDecimal("-200.00"));
         });
     }
 
@@ -114,7 +114,7 @@ public class WithdrawTest {
 
         //THEN
         assertThrows(InsufficientFundsBalanceException.class, () -> {
-            withdrawService.withdraw(id, new BigDecimal("5000.00"));
+            withdrawUseCase.withdraw(id, new BigDecimal("5000.00"));
         });
     }
 
@@ -132,7 +132,7 @@ public class WithdrawTest {
 
         //THEN
         assertThrows(InsufficientFundsBalanceException.class, () -> {
-            withdrawService.withdraw(id, new BigDecimal("5000.00"));
+            withdrawUseCase.withdraw(id, new BigDecimal("5000.00"));
         });
     }
 }
