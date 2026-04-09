@@ -1,17 +1,11 @@
 package com.duong.bank.unitTest.controller;
 
 import com.duong.bank.BankAccountFactory;
-import com.duong.bank.adapter.in.controller.BankAccountController;
 import com.duong.bank.domain.model.AccountType;
 import com.duong.bank.domain.model.CheckingAccount;
-import com.duong.bank.port.in.DepositPort;
-import com.duong.bank.port.in.WithdrawPort;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -21,23 +15,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class WithdrawTest {
-
-    MockMvc mockMvc;
-
-    DepositPort depositPort;
-
-    WithdrawPort withdrawPort;
-
-    BankAccountController bankAccountController;
+public class WithdrawTest extends AbstractBankAccountController {
 
     @BeforeEach
     void setUp() {
-        depositPort = Mockito.mock(DepositPort.class);
-        withdrawPort = Mockito.mock(WithdrawPort.class);
-
-        bankAccountController = new BankAccountController(depositPort, withdrawPort);
-        mockMvc = MockMvcBuilders.standaloneSetup(bankAccountController).build();
+        super.setUp();
     }
 
     @Test
