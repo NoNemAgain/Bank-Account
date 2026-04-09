@@ -5,10 +5,13 @@ import com.duong.bank.domain.exception.ObjectNotfoundException;
 import com.duong.bank.domain.exception.ObjectType;
 import com.duong.bank.domain.model.BankAccount;
 import com.duong.bank.port.in.GetBankAccountPort;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-
+@Slf4j
+@Service
 public class GetBankAccountUseCase implements GetBankAccountPort {
     BankAccountRepository bankAccountRepository;
 
