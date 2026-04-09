@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class BankAccountRequest {
+    private String owner;
 
     private BigDecimal balance;
 

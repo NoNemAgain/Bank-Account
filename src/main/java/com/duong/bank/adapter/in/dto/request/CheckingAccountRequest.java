@@ -17,9 +17,9 @@ public class CheckingAccountRequest extends BankAccountRequest {
 
     private BigDecimal overdraftLimit;
 
-    public CheckingAccountRequest(BigDecimal balance, boolean overdraftAllowed,
+    public CheckingAccountRequest(String owner,BigDecimal balance, boolean overdraftAllowed,
                                   BigDecimal overdraftLimit) {
-        super(balance);
+        super(owner,balance);
         this.overdraftAllowed = overdraftAllowed;
         this.overdraftLimit = overdraftLimit;
     }

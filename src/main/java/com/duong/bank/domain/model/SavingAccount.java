@@ -19,10 +19,10 @@ import java.util.UUID;
 public class SavingAccount extends BankAccount {
     private BigDecimal balanceLimit;
 
-    public SavingAccount(UUID id, BigDecimal balance,
+    public SavingAccount(UUID id,String owner, BigDecimal balance,
                          List<Operation> operationsHistory, List<BankStatement> bankStatements,
                          BigDecimal balanceLimit) {
-        super(id, balance, operationsHistory, bankStatements);
+        super(id,owner, balance, operationsHistory, bankStatements);
         this.balanceLimit = balanceLimit;
     }
 

@@ -23,10 +23,10 @@ public class CheckingAccount extends BankAccount {
 
     private BigDecimal overdraftLimit;
 
-    public CheckingAccount(UUID id, BigDecimal balance, boolean overdraftAllowed,
+    public CheckingAccount(UUID id, String owner, BigDecimal balance, boolean overdraftAllowed,
                            List<Operation> operationsHistory, List<BankStatement> bankStatements,
                            BigDecimal overdraftLimit) {
-        super(id, balance, operationsHistory, bankStatements);
+        super(id,owner, balance, operationsHistory, bankStatements);
         this.overdraftAllowed = overdraftAllowed;
         this.overdraftLimit = overdraftLimit;
     }

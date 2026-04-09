@@ -18,8 +18,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class BankAccountResponse {
-
     private UUID id;
+
+    private String owner;
 
     private BigDecimal balance;
 

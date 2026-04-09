@@ -21,6 +21,7 @@ public class BankAccountMapper {
                 CheckingAccount checkingAccount = (CheckingAccount) bankAccount;
                 return new CheckingAccountResponse(
                         checkingAccount.getId(),
+                        checkingAccount.getOwner(),
                         checkingAccount.getBalance(),
                         checkingAccount.isOverdraftAllowed(),
                         checkingAccount.getOperationsHistory(),
@@ -32,6 +33,7 @@ public class BankAccountMapper {
                 SavingAccount savingAccount = (SavingAccount) bankAccount;
                 return new SavingAccountResponse(
                         savingAccount.getId(),
+                        savingAccount.getOwner(),
                         savingAccount.getBalance(),
                         savingAccount.getOperationsHistory(),
                         savingAccount.getBankStatements(),
@@ -51,6 +53,7 @@ public class BankAccountMapper {
                 CheckingAccountResponse checkingAccountDTO = (CheckingAccountResponse) bankAccountResponse;
                 return new CheckingAccount(
                         checkingAccountDTO.getId(),
+                        checkingAccountDTO.getOwner(),
                         checkingAccountDTO.getBalance(),
                         checkingAccountDTO.isOverdraftAllowed(),
                         checkingAccountDTO.getOperationsHistory(),
@@ -62,6 +65,7 @@ public class BankAccountMapper {
                 SavingAccountResponse savingAccountDTO = (SavingAccountResponse) bankAccountResponse;
                 return new SavingAccount(
                         savingAccountDTO.getId(),
+                        savingAccountDTO.getOwner(),
                         savingAccountDTO.getBalance(),
                         savingAccountDTO.getOperationsHistory(),
                         savingAccountDTO.getBankStatements(),

@@ -26,6 +26,8 @@ public abstract class BankAccount {
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
 
+    private String owner;
+
     private BigDecimal balance;
 
     @OneToMany(mappedBy = "bankAccount")

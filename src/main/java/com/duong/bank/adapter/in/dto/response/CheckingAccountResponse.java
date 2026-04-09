@@ -21,10 +21,10 @@ public class CheckingAccountResponse extends BankAccountResponse {
 
     private BigDecimal overdraftLimit;
 
-    public CheckingAccountResponse(UUID id, BigDecimal balance, boolean overdraftAllowed,
+    public CheckingAccountResponse(UUID id, String owner, BigDecimal balance, boolean overdraftAllowed,
                                    List<Operation> operationsHistory, List<BankStatement> bankStatements,
                                    BigDecimal overdraftLimit) {
-        super(id, balance, operationsHistory, bankStatements);
+        super(id,owner, balance, operationsHistory, bankStatements);
         this.overdraftAllowed = overdraftAllowed;
         this.overdraftLimit = overdraftLimit;
     }

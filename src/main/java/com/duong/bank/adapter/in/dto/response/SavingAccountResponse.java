@@ -18,10 +18,10 @@ import java.util.UUID;
 public class SavingAccountResponse extends BankAccountResponse {
     private BigDecimal balanceLimit;
 
-    public SavingAccountResponse(UUID id, BigDecimal balance,
+    public SavingAccountResponse(UUID id, String owner, BigDecimal balance,
                                  List<Operation> operationsHistory, List<BankStatement> bankStatements,
                                  BigDecimal balanceLimit) {
-        super(id, balance, operationsHistory, bankStatements);
+        super(id, owner, balance, operationsHistory, bankStatements);
         this.balanceLimit = balanceLimit;
     }
 

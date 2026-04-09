@@ -19,9 +19,9 @@ import java.util.UUID;
 public class SavingAccountRequest extends BankAccountRequest {
     private BigDecimal balanceLimit;
 
-    public SavingAccountRequest(BigDecimal balance,
+    public SavingAccountRequest(String owner,BigDecimal balance,
                                  BigDecimal balanceLimit) {
-        super(balance);
+        super(owner,balance);
         this.balanceLimit = balanceLimit;
     }
 
