@@ -9,4 +9,6 @@ public interface GetBankAccountPort {
     BankAccount getBankAccountById(UUID id);
 
     List<BankAccount> getBankAccounts();
+
+    List<BankAccount> getBanksAccountsByOwner(String owner);
 }

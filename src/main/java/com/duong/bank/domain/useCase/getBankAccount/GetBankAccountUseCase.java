@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+
 @Slf4j
 @Service
 public class GetBankAccountUseCase implements GetBankAccountPort {
@@ -28,5 +29,10 @@ public class GetBankAccountUseCase implements GetBankAccountPort {
     public BankAccount getBankAccountById(UUID id) {
         return bankAccountRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotfoundException(ObjectType.BANK));
+    }
+
+    @Override
+    public List<BankAccount> getBanksAccountsByOwner(String owner) {
+        return bankAccountRepository.findByOwnerName(owner);
     }
 }

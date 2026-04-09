@@ -1,7 +1,6 @@
 package com.duong.bank.adapter.in.controller;
 
 
-import com.duong.bank.adapter.in.dto.request.BankAccountRequest;
 import com.duong.bank.adapter.in.dto.request.CheckingAccountRequest;
 import com.duong.bank.adapter.in.dto.request.SavingAccountRequest;
 import com.duong.bank.adapter.in.dto.response.BankAccountResponse;
@@ -58,13 +57,6 @@ public class BankAccountController {
         return ResponseEntity.ok(BankAccountMapper.toResponse(getBankAccountPort.getBankAccountById(id)));
     }
 
-    /*@PostMapping()
-    public ResponseEntity<BankAccountResponse> createBankAcc(@RequestBody BankAccountRequest bankAccountRequest) {
-        BankAccount bankAccount = createBankAccountPort.createBankAccount(BankAccountMapper.requestToEntity(bankAccountRequest));
-
-        return ResponseEntity.created(URI.create("/bank-statements/" + bankAccount.getId()))
-                .body(BankAccountMapper.toResponse(bankAccount));
-    }*/
     @PostMapping("/checking")
     public ResponseEntity<BankAccountResponse> createCheckAcc(@RequestBody CheckingAccountRequest checkingAccountRequest) {
         BankAccount bankAccount = createBankAccountPort.createBankAccount(BankAccountMapper.requestToEntity(checkingAccountRequest));
@@ -80,6 +72,9 @@ public class BankAccountController {
         return ResponseEntity.created(URI.create("/bank-statements/" + bankAccount.getId()))
                 .body(BankAccountMapper.toResponse(bankAccount));
     }
-
-
+    @GetMapping("owner")
+    public ResponseEntity<List<BankAccountResponse>> getBankAccById(@RequestParam String owner) {
+        return  ResponseEntity.ok(getBankAccountPort.getBanksAccountsByOwner(owner).stream()
+                .map(bankAccount -> BankAccountMapper.toResponse(bankAccount)).toList());
+    }
 }
