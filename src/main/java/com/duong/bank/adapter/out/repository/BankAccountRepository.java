@@ -9,5 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface BankAccountRepository extends JpaRepository<BankAccount, UUID> {
-    List<BankAccount> findByOwnerName(String ownerName);
+    List<BankAccount> findByOwner(String owner);
 }
