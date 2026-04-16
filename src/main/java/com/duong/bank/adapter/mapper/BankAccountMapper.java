@@ -83,11 +83,13 @@ public class BankAccountMapper {
         switch (bankAccountRequest.getTypeBank()) {
             case CHECKING -> {
                 CheckingAccount checkingAccount = new CheckingAccount();
+                checkingAccount.setOwner(bankAccountRequest.getOwner());
                 checkingAccount.setBalance(bankAccountRequest.getBalance());
                 return checkingAccount;
             }
             case SAVING -> {
                 SavingAccount savingAccount = new SavingAccount();
+                savingAccount.setOwner(bankAccountRequest.getOwner());
                 savingAccount.setBalance(bankAccountRequest.getBalance());
 
                 return savingAccount;
