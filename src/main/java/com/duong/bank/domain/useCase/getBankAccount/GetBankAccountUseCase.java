@@ -33,6 +33,6 @@ public class GetBankAccountUseCase implements GetBankAccountPort {
 
     @Override
     public List<BankAccount> getBanksAccountsByOwner(String owner) {
-        return bankAccountRepository.findByOwnerName(owner);
+        return bankAccountRepository.findByOwner(owner);
     }
 }
