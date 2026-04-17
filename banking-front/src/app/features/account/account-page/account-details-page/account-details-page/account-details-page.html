@@ -27,3 +27,9 @@
     </div>
   </div>
 </div>
+
+<app-account-transaction
+  type="withdraw"
+  (action)="handleWithdraw($event)"
+></app-account-transaction>
+<app-account-transaction type="deposit" (action)="handleDeposit($event)"></app-account-transaction>

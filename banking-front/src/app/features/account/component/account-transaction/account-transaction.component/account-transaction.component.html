@@ -1,0 +1,14 @@
+<div class="transaction-box">
+  <!-- TITRE DYNAMIQUE -->
+  <h3>
+    {{ type === 'withdraw' ? "Retirer de l'argent" : "Déposer de l'argent" }}
+  </h3>
+
+  <!-- INPUT MONTANT -->
+  <input type="number" [(ngModel)]="amount" placeholder="Montant" min="0" />
+
+  <!-- BOUTON DYNAMIQUE -->
+  <button (click)="submit()" [disabled]="amount <= 0" [ngClass]="type">
+    {{ type === 'withdraw' ? 'Retirer' : 'Déposer' }}
+  </button>
+</div>
