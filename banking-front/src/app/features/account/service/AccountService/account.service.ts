@@ -17,7 +17,7 @@ export class AccountService {
     return this.http.get<Account[]>(this.apiURL);
   }
   getAccountId(id: string): Observable<Account> {
-    return this.http.get<Account>('${this.apiURL}/${id}');
+    return this.http.get<Account>(`${this.apiURL}/${id}`);
   }
   createCheckAcc(account: CheckingAcc): Observable<CheckingAcc> {
     return this.http.post<CheckingAcc>(`${this.apiURL}/checking`, account);

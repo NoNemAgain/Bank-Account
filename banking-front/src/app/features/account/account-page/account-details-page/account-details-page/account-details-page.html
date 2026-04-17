@@ -1,0 +1,29 @@
+<div *ngIf="account$ | async as account">
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Compte bancaire</h1>
+    <p class="subtitle">Détails et informations du compte</p>
+  </div>
+
+  <!-- MAIN INFO -->
+  <div class="section">
+    <h2>Informations générales</h2>
+
+    <div class="grid">
+      <div class="item">
+        <span class="label">ID du compte</span>
+        <span class="value">{{ account.id }}</span>
+      </div>
+
+      <div class="item">
+        <span class="label">Titulaire</span>
+        <span class="value">{{ account.owner }}</span>
+      </div>
+
+      <div class="item">
+        <span class="label">Solde</span>
+        <span class="value">{{ account.balance }} €</span>
+      </div>
+    </div>
+  </div>
+</div>

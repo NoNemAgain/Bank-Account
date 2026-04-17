@@ -1,0 +1,103 @@
+.account-document {
+  font-family: Arial, sans-serif;
+  padding: 24px;
+  background: #f6f8fb;
+}
+
+/* HEADER */
+.header {
+  margin-bottom: 24px;
+}
+
+.header h1 {
+  font-size: 28px;
+  margin: 0;
+}
+
+.subtitle {
+  color: #6b7280;
+}
+
+/* SECTIONS */
+.section {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.section h2 {
+  margin-bottom: 16px;
+  font-size: 18px;
+}
+
+/* GRID INFOS */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.item {
+  padding: 12px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.label {
+  display: block;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.value {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* STATUS */
+.active {
+  color: green;
+}
+
+/* CARDS */
+.cards {
+  display: flex;
+  gap: 12px;
+}
+
+.card {
+  flex: 1;
+  padding: 16px;
+  border-radius: 10px;
+  color: white;
+}
+
+.income {
+  background: #16a34a;
+}
+
+.expense {
+  background: #dc2626;
+}
+
+.balance {
+  background: #2563eb;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.negative {
+  color: #dc2626;
+}

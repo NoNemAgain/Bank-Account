@@ -1,10 +1,11 @@
 import { NgFor } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Account } from '../../models/account.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-account-list',
-  imports: [NgFor],
+  imports: [NgFor,RouterLink],
   templateUrl: './account-list.component.html',
   styleUrl: './account-list.component.css',
 })

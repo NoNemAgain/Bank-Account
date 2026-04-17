@@ -14,6 +14,9 @@
       <td>{{ account.id }}</td>
       <td>{{ account.owner }}</td>
       <td>{{ account.balance }}</td>
+      <td>
+        <button class="btn" [routerLink]="['/account', account.id]">voir compte</button>
+      </td>
     </tr>
   </tbody>
 </table>
