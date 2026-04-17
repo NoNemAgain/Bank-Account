@@ -6,6 +6,8 @@ import com.duong.bank.adapter.in.dto.request.SavingAccountRequest;
 import com.duong.bank.adapter.in.dto.response.BankAccountResponse;
 import com.duong.bank.adapter.mapper.BankAccountMapper;
 import com.duong.bank.domain.model.BankAccount;
+import com.duong.bank.domain.model.CheckingAccount;
+import com.duong.bank.domain.model.SavingAccount;
 import com.duong.bank.port.in.CreateBankAccountPort;
 import com.duong.bank.port.in.DepositPort;
 import com.duong.bank.port.in.GetBankAccountPort;
@@ -59,7 +61,7 @@ public class BankAccountController {
 
     @PostMapping("/checking")
     public ResponseEntity<BankAccountResponse> createCheckAcc(@RequestBody CheckingAccountRequest checkingAccountRequest) {
-        BankAccount bankAccount = createBankAccountPort.createBankAccount(BankAccountMapper.requestToEntity(checkingAccountRequest));
+        CheckingAccount bankAccount = (CheckingAccount)createBankAccountPort.createBankAccount(BankAccountMapper.requestToEntity(checkingAccountRequest));
 
         return ResponseEntity.created(URI.create("/bank-statements/" + bankAccount.getId()))
                 .body(BankAccountMapper.toResponse(bankAccount));
@@ -67,7 +69,7 @@ public class BankAccountController {
 
     @PostMapping("/saving")
     public ResponseEntity<BankAccountResponse> createSavingAcc(@RequestBody SavingAccountRequest savingAccountRequest) {
-        BankAccount bankAccount = createBankAccountPort.createBankAccount(BankAccountMapper.requestToEntity(savingAccountRequest));
+        SavingAccount bankAccount = (SavingAccount) createBankAccountPort.createBankAccount(BankAccountMapper.requestToEntity(savingAccountRequest));
 
         return ResponseEntity.created(URI.create("/bank-statements/" + bankAccount.getId()))
                 .body(BankAccountMapper.toResponse(bankAccount));
