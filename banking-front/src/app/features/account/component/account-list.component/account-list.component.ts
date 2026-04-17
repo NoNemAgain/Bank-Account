@@ -1,6 +1,6 @@
 import { NgFor } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Account } from '../../../../models/account.model';
+import { Account } from '../../models/account.model';
 
 @Component({
   selector: 'app-account-list',

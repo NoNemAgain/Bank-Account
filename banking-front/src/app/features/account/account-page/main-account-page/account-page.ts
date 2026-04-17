@@ -1,9 +1,9 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AccountService } from '../../../core/service/AccountService/account.service';
-import { Account } from '../../../models/account.model';
-import { AccountListComponent } from '../component/account-list.component/account-list.component';
+import { Account } from '../../models/account.model';
+import { AccountListComponent } from '../../component/account-list.component/account-list.component';
+import { AccountService } from '../../service/AccountService/account.service';
 
 @Component({
   selector: 'app-account-page',

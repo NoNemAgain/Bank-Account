@@ -1,5 +1,5 @@
-import { bankStatement } from './bank.statement';
-import { operation } from './operation.model';
+import { bankStatement } from '../../../models/bank.statement';
+import { operation } from '../../../models/operation.model';
 
 export interface Account {
   id: number;

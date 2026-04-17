@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Account } from '../../../models/account.model';
-import { CheckingAcc } from '../../../models/checkingAcc';
-import { SavingAcc } from '../../../models/savingAcc';
+import { Account } from '../../models/account.model';
+import { CheckingAcc } from '../../../../models/checkingAcc';
+import { SavingAcc } from '../../../../models/savingAcc';
 
 @Injectable({
   providedIn: 'root',
