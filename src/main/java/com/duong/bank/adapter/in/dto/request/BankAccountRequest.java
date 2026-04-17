@@ -1,6 +1,7 @@
 package com.duong.bank.adapter.in.dto.request;
 
 import com.duong.bank.domain.model.AccountType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ public abstract class BankAccountRequest {
 
     private BigDecimal balance;
 
+    @JsonIgnore
     public abstract AccountType getTypeBank();
 
 }
